@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "dungeonsmod:block/crate_top",
+    "down": "dungeonsmod:block/crate_top",
+    "up": "dungeonsmod:block/crate_top",
+    "north": "dungeonsmod:block/crate_side",
+    "east": "dungeonsmod:block/crate_side",
+    "south": "dungeonsmod:block/crate_side",
+    "west": "dungeonsmod:block/crate_side"
+  }
+}
