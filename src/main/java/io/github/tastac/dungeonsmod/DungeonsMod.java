@@ -1,8 +1,8 @@
 package io.github.tastac.dungeonsmod;
 
 import io.github.tastac.dungeonsmod.commands.TestCommand;
-import io.github.tastac.dungeonsmod.common.init.ModBlocks;
-import io.github.tastac.dungeonsmod.common.init.ModItems;
+import io.github.tastac.dungeonsmod.common.init.DungeonsBlocks;
+import io.github.tastac.dungeonsmod.common.init.DungeonsItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -27,15 +27,15 @@ public class DungeonsMod
         @Override
         public ItemStack createIcon()
         {
-            return new ItemStack(ModBlocks.CRATE.get());
+            return new ItemStack(DungeonsBlocks.CRATE.get());
         }
     };
 
     public DungeonsMod()
     {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModItems.ITEMS.register(modBus);
-        ModBlocks.BLOCKS.register(modBus);
+        DungeonsItems.ITEMS.register(modBus);
+        DungeonsBlocks.BLOCKS.register(modBus);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
