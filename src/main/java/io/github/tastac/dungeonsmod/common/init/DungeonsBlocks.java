@@ -13,7 +13,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class ModBlocks {
+public class DungeonsBlocks
+{
 
     public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, DungeonsMod.MOD_ID);
 
@@ -33,7 +34,7 @@ public class ModBlocks {
     private static RegistryObject<Block> register(String name, Supplier<Block> block, Function<RegistryObject<Block>, Item> item)
     {
         RegistryObject<Block> object = BLOCKS.register(name, block);
-        ModItems.ITEMS.register(name, () -> item.apply(object));
+        DungeonsItems.ITEMS.register(name, () -> item.apply(object));
         return object;
     }
 
