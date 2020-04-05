@@ -1,7 +1,7 @@
 package io.github.tastac.dungeonsmod;
 
-import io.github.tastac.dungeonsmod.init.ModBlocks;
-import io.github.tastac.dungeonsmod.init.ModItems;
+import io.github.tastac.dungeonsmod.common.init.ModBlocks;
+import io.github.tastac.dungeonsmod.common.init.ModItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;

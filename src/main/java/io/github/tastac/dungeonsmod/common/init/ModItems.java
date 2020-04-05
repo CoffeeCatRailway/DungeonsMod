@@ -1,4 +1,4 @@
-package io.github.tastac.dungeonsmod.init;
+package io.github.tastac.dungeonsmod.common.init;
 
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import net.minecraft.item.Item;
