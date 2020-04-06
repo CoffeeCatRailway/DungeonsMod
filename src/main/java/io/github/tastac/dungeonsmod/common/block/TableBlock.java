@@ -6,25 +6,19 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.CarpetBlock;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.ILightReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 /**
  * @author CoffeeCatRailway
@@ -34,7 +28,6 @@ public class TableBlock extends ModBlock {
 
     public static final BooleanProperty HASCLOTH = BooleanProperty.create("hascloth");
     public static final EnumProperty<DyeColor> CLOTHCOLOR = EnumProperty.create("clothcolor", DyeColor.class);
-    public static final EnumProperty<PlaceState> PLACESTATE = EnumProperty.create("placestate", PlaceState.class);
 
     public TableBlock(Properties properties) {
         super(properties);
@@ -42,8 +35,7 @@ public class TableBlock extends ModBlock {
                 .with(HORIZONTAL_FACING, Direction.NORTH)
                 .with(WATERLOGGED, false)
                 .with(HASCLOTH, false)
-                .with(CLOTHCOLOR, DyeColor.WHITE)
-                .with(PLACESTATE, PlaceState.SIDE));
+                .with(CLOTHCOLOR, DyeColor.WHITE));
     }
 
     @Override
@@ -71,7 +63,7 @@ public class TableBlock extends ModBlock {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> stateContainer) {
-        stateContainer.add(HORIZONTAL_FACING, WATERLOGGED, HASCLOTH, CLOTHCOLOR, PLACESTATE);
+        stateContainer.add(HORIZONTAL_FACING, WATERLOGGED, HASCLOTH, CLOTHCOLOR);
     }
 
     public static DyeColor getColthColor(ILightReader world, BlockPos pos) {
@@ -117,23 +109,6 @@ public class TableBlock extends ModBlock {
                 return new ItemStack(Blocks.RED_CARPET);
             case BLACK:
                 return new ItemStack(Blocks.BLACK_CARPET);
-        }
-    }
-
-    public enum PlaceState implements IStringSerializable {
-        CORNER_SHOW("corner_show"),
-        CORNER_HIDE("corner_hide"),
-        SIDE("side");
-
-        String name;
-
-        PlaceState(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return this.name;
         }
     }
 }
