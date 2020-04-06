@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "dungeonsmod:block/stone_bricks_tile"
-    }
-  }
+	"variants": {
+		"": {
+			"model": "dungeonsmod:block/stone_bricks_tile"
+		}
+	}
 }
