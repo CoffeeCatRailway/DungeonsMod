@@ -3,6 +3,7 @@ package io.github.tastac.dungeonsmod.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
@@ -15,23 +16,52 @@ import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.IBooleanFunction;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ocelot
  */
-public class UrnBlock extends ModBlock
+public class UrnBlock extends ModBlock implements IWaterLoggable
 {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+    private static final VoxelShape TOP_SHAPE = generateShape(-16, true, true);
+    private static final VoxelShape BOTTOM_SHAPE = generateShape(0, true, true);
+    private static final VoxelShape TOP_COLLISION_SHAPE = generateShape(-16, true, false);
+    private static final VoxelShape BOTTOM_COLLISION_SHAPE = generateShape(0, false, true);
 
     public UrnBlock(Properties properties)
     {
         super(properties);
         this.setDefaultState(this.getStateContainer().getBaseState().with(HALF, DoubleBlockHalf.LOWER).with(HORIZONTAL_FACING, Direction.NORTH).with(WATERLOGGED, false));
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context)
+    {
+        return state.get(HALF) == DoubleBlockHalf.LOWER ? BOTTOM_SHAPE : TOP_SHAPE;
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context)
+    {
+        return state.get(HALF) == DoubleBlockHalf.LOWER ? BOTTOM_COLLISION_SHAPE : TOP_COLLISION_SHAPE;
+    }
+
+    @Override
+    public VoxelShape getRenderShape(BlockState state, IBlockReader worldIn, BlockPos pos)
+    {
+        return state.get(HALF) == DoubleBlockHalf.LOWER ? BOTTOM_COLLISION_SHAPE : TOP_COLLISION_SHAPE;
     }
 
     public void placeAt(IWorld world, BlockPos pos, Direction facing, int flags)
@@ -114,5 +144,38 @@ public class UrnBlock extends ModBlock
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
         builder.add(HALF, HORIZONTAL_FACING, WATERLOGGED);
+    }
+
+    private static VoxelShape generateShape(float offset, boolean top, boolean bottom)
+    {
+        List<VoxelShape> shapes = new ArrayList<>();
+
+        if (top)
+        {
+            shapes.add(makeCuboidShape(0, 16 + offset, 0, 16, offset + 18, 16)); // BASE TOP
+            shapes.add(makeCuboidShape(3, 18 + offset, 3, 13, 26 + offset, 13)); // TOP
+        }
+
+        if (bottom)
+        {
+            shapes.add(makeCuboidShape(0, offset, 0, 16, 16 + offset, 16)); // BASE
+        }
+
+        //        shapes.add(makeCuboidShape(0, offset, 0, 16, 18 + offset, 16)); // BASE
+        //        shapes.add(makeCuboidShape(3, 18 + offset, 3, 13, 26 + offset, 13)); // TOP
+
+        //        shapes.add(VoxelShapes.create(0.188, 1.125 + offset/16f, 0.188, 0.812, 1.625 + offset/16f, 0.812)); // TOP_1
+
+        //        shapes.add(VoxelShapes.create(0.188, 1.125 + offset, 0.188, 0.312, 1.625 + offset, 0.812)); // TOP_1
+        //        shapes.add(VoxelShapes.create(0.312, 1.125 + offset, 0.688, 0.688, 1.625 + offset, 0.812)); // TOP_2
+        //        shapes.add(VoxelShapes.create(0.688, 1.125 + offset, 0.188, 0.812, 1.625 + offset, 0.812)); // TOP_3
+        //        shapes.add(VoxelShapes.create(0.312, 1.125 + offset, 0.188, 0.688, 1.625 + offset, 0.312)); // TOP_4
+
+        VoxelShape result = VoxelShapes.empty();
+        for (VoxelShape shape : shapes)
+        {
+            result = VoxelShapes.combine(result, shape, IBooleanFunction.OR);
+        }
+        return result.simplify();
     }
 }
