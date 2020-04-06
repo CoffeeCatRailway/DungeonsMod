@@ -2,10 +2,12 @@ package io.github.tastac.dungeonsmod.common.init;
 
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import io.github.tastac.dungeonsmod.common.block.PathBlock;
+import io.github.tastac.dungeonsmod.common.block.TableBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,6 +25,8 @@ public class DungeonsBlocks
     public static final RegistryObject<Block> ROCKY_DIRT_PATH = register("rocky_dirt_path", () -> new Block(Block.Properties.from(Blocks.COBBLESTONE)), new Item.Properties());
     public static final RegistryObject<Block> STONE_BRICKS_TILE = register("stone_bricks_tile", () -> new Block(Block.Properties.from(Blocks.STONE_BRICKS)), new Item.Properties());
     public static final RegistryObject<Block> DIRT_GRASSY_LESS = register("dirt_grassy_less", () -> new Block(Block.Properties.from(Blocks.DIRT)), new Item.Properties());
+
+    public static final RegistryObject<TableBlock> TABLE = register("table", () -> new TableBlock(Block.Properties.from(Blocks.OAK_PLANKS)), new Item.Properties());
 
     //Registry
 
