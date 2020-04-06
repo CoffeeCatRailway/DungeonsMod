@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "facing=north,hascloth=false,placestate=corner_show": { "model": "dungeonsmod:block/table" },
+    "facing=south,hascloth=false,placestate=corner_show": { "model": "dungeonsmod:block/table", "y": 180 },
+    "facing=east,hascloth=false,placestate=corner_show": { "model": "dungeonsmod:block/table", "y": 90 },
+    "facing=west,hascloth=false,placestate=corner_show": { "model": "dungeonsmod:block/table", "y": 270 },
+
+    "facing=north,hascloth=true,placestate=corner_show": { "model": "dungeonsmod:block/table_cloth" },
+    "facing=south,hascloth=true,placestate=corner_show": { "model": "dungeonsmod:block/table_cloth", "y": 180 },
+    "facing=east,hascloth=true,placestate=corner_show": { "model": "dungeonsmod:block/table_cloth", "y": 90 },
+    "facing=west,hascloth=true,placestate=corner_show": { "model": "dungeonsmod:block/table_cloth", "y": 270 }
+  }
+}
