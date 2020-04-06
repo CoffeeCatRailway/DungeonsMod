@@ -1,15 +1,11 @@
 package io.github.tastac.dungeonsmod;
 
-import io.github.tastac.dungeonsmod.commands.TestCommand;
-import io.github.tastac.dungeonsmod.common.init.DungeonsBlocks;
-import io.github.tastac.dungeonsmod.common.init.DungeonsItems;
+import io.github.tastac.dungeonsmod.common.init.*;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.logging.Logger;
@@ -36,12 +32,9 @@ public class DungeonsMod
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         DungeonsItems.ITEMS.register(modBus);
         DungeonsBlocks.BLOCKS.register(modBus);
+        DungeonsFeatures.FEATURES.register(modBus);
+        DungeonsBiomes.BIOMES.register(modBus);
+        DungeonsDimensions.DIMENSIONS.register(modBus);
         MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    @SubscribeEvent
-    public void onServerStartingEvent(FMLServerStartingEvent event)
-    {
-        TestCommand.register(event.getCommandDispatcher());
     }
 }
