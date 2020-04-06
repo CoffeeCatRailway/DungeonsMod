@@ -18,24 +18,28 @@ public class DungeonsBlocks
 
     public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, DungeonsMod.MOD_ID);
 
-    public static final RegistryObject<Block> CRATE = register("crate", () -> new Block(Block.Properties.from(Blocks.BARREL)), new Item.Properties());
-    public static final RegistryObject<Block> DIRT_PATH = register("dirt_path", () -> new PathBlock(Block.Properties.from(Blocks.DIRT)), new Item.Properties());
-    public static final RegistryObject<Block> ROCKY_DIRT_PATH = register("rocky_dirt_path", () -> new Block(Block.Properties.from(Blocks.COBBLESTONE)), new Item.Properties());
-    public static final RegistryObject<Block> STONE_BRICKS_TILE = register("stone_bricks_tile", () -> new Block(Block.Properties.from(Blocks.STONE_BRICKS)), new Item.Properties());
-    public static final RegistryObject<Block> DIRT_GRASSY_LESS = register("dirt_grassy_less", () -> new Block(Block.Properties.from(Blocks.DIRT)), new Item.Properties());
+    public static final RegistryObject<Block> CRATE = register("crate", () -> new Block(Block.Properties.from(Blocks.BARREL)));
+    public static final RegistryObject<Block> DIRT_PATH = register("dirt_path", () -> new PathBlock(Block.Properties.from(Blocks.DIRT)));
+    public static final RegistryObject<Block> ROCKY_DIRT_PATH = register("rocky_dirt_path", () -> new Block(Block.Properties.from(Blocks.COBBLESTONE)));
+    public static final RegistryObject<Block> STONE_BRICKS_TILE = register("stone_bricks_tile", () -> new Block(Block.Properties.from(Blocks.STONE_BRICKS)));
+    public static final RegistryObject<Block> DIRT_GRASSY_LESS = register("dirt_grassy_less", () -> new Block(Block.Properties.from(Blocks.DIRT)));
 
     //Registry
 
-    private static RegistryObject<Block> register(String name, Supplier<Block> block, Item.Properties itemProperties)
+    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block)
     {
-        return register(name, block, object -> new BlockItem(object.get(), itemProperties.group(DungeonsMod.GROUP)));
+        return register(name, block, object -> new BlockItem(object.get(), new Item.Properties().group(DungeonsMod.GROUP)));
     }
 
-    private static RegistryObject<Block> register(String name, Supplier<Block> block, Function<RegistryObject<Block>, Item> item)
+    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block, Item.Properties itemProperties)
     {
-        RegistryObject<Block> object = BLOCKS.register(name, block);
+        return register(name, block, object -> new BlockItem(object.get(), itemProperties));
+    }
+
+    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block, Function<RegistryObject<T>, Item> item)
+    {
+        RegistryObject<T> object = BLOCKS.register(name, block);
         DungeonsItems.ITEMS.register(name, () -> item.apply(object));
         return object;
     }
-
 }
