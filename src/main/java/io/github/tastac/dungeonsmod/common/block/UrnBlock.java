@@ -21,6 +21,9 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
+/**
+ * @author Ocelot
+ */
 public class UrnBlock extends ModBlock
 {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;

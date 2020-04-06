@@ -14,17 +14,17 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  * Created: 6/04/2020
  */
 @OnlyIn(Dist.CLIENT)
-public class ClientEvents {
-
-    public static void registerBlockColors() {
+public class ClientEvents
+{
+    public static void registerBlockColors()
+    {
         BlockColors blocks = Minecraft.getInstance().getBlockColors();
-
-        blocks.register((state, world, pos, tintIndex) -> world != null && pos != null ?
-                        TableBlock.getColthColor(world, pos).getColorValue() : 0xFFFFFF,
-                DungeonsBlocks.TABLE.get());
+        blocks.register((state, world, pos, tintIndex) -> world != null && pos != null ? TableBlock.getColthColor(world, pos).getColorValue() : 0xFFFFFF, DungeonsBlocks.TABLE.get());
     }
 
-    public static void registerBlockRenderLayers() {
+    public static void registerBlockRenderLayers()
+    {
         RenderTypeLookup.setRenderLayer(DungeonsBlocks.TABLE.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(DungeonsBlocks.URN.get(), RenderType.getCutout());
     }
 }
