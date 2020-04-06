@@ -25,7 +25,7 @@ public class DungeonsBlocks
     public static final RegistryObject<Block> STONE_BRICKS_TILE = register("stone_bricks_tile", () -> new Block(Block.Properties.from(Blocks.STONE_BRICKS)));
     public static final RegistryObject<Block> DIRT_GRASSY_LESS = register("dirt_grassy_less", () -> new Block(Block.Properties.from(Blocks.DIRT)));
 
-    public static final RegistryObject<TableBlock> TABLE = register("table", () -> new TableBlock(Block.Properties.from(Blocks.OAK_PLANKS)), new Item.Properties());
+    public static final RegistryObject<TableBlock> TABLE = register("table", () -> new TableBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
 
     //Registry
 

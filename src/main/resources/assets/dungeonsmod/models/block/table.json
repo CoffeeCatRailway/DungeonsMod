@@ -1,0 +1,48 @@
+{
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "dungeonsmod:block/table",
+		"particle": "dungeonsmod:block/table"
+	},
+	"elements": [
+		{
+			"name": "top",
+			"from": [-16, 13, 0],
+			"to": [16, 16, 24],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 10.75, 8, 11.5], "texture": "#0", "cullface": "north"},
+				"east": {"uv": [4.75, 15.25, 10.75, 16], "texture": "#0", "cullface": "east"},
+				"west": {"uv": [0, 15.25, 6, 16], "texture": "#0", "cullface": "west"},
+				"up": {"uv": [0, 0, 8, 6], "texture": "#0"},
+				"down": {"uv": [0, 4.75, 8, 10.75], "texture": "#0"}
+			}
+		},
+		{
+			"name": "leg_1",
+			"from": [-15, 0, 1],
+			"to": [-12, 13, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 8, 8]},
+			"faces": {
+				"north": {"uv": [0.75, 11.5, 1.5, 14.75], "texture": "#0", "cullface": "west"},
+				"east": {"uv": [0, 11.5, 0.75, 14.75], "texture": "#0", "cullface": "west"},
+				"south": {"uv": [2.25, 11.5, 3, 14.75], "texture": "#0", "cullface": "west"},
+				"west": {"uv": [1.5, 11.5, 2.25, 14.75], "texture": "#0", "cullface": "west"},
+				"down": {"uv": [3, 11.5, 3.75, 12.25], "texture": "#0", "cullface": "west"}
+			}
+		},
+		{
+			"name": "leg_2",
+			"from": [12, 0, 1],
+			"to": [15, 13, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 8, 8]},
+			"faces": {
+				"north": {"uv": [1.5, 11.5, 2.25, 14.75], "texture": "#0", "cullface": "east"},
+				"east": {"uv": [0.75, 11.5, 1.5, 14.75], "texture": "#0", "cullface": "east"},
+				"south": {"uv": [0, 11.5, 0.75, 14.75], "texture": "#0", "cullface": "east"},
+				"west": {"uv": [2.25, 11.5, 3, 14.75], "texture": "#0", "cullface": "east"},
+				"down": {"uv": [3, 11.5, 3.75, 12.25], "texture": "#0", "cullface": "down"}
+			}
+		}
+	]
+}
