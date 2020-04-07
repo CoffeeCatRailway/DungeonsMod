@@ -24,7 +24,7 @@ import net.minecraft.world.World;
  * @author CoffeeCatRailway
  * Created: 6/04/2020
  */
-public class TableBlock extends ModBlock {
+public class TableBlock extends ModBlock implements IWaterLoggable {
 
     public static final BooleanProperty HASCLOTH = BooleanProperty.create("hascloth");
     public static final EnumProperty<DyeColor> CLOTHCOLOR = EnumProperty.create("clothcolor", DyeColor.class);
