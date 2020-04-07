@@ -1,0 +1,19 @@
+{
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "dungeonsmod:block/table",
+		"particle": "dungeonsmod:block/table"
+	},
+	"elements": [
+		{
+			"name": "top",
+			"from": [0, 13, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [3.25, 15.25, 7.25, 16], "texture": "#0"},
+				"up": {"uv": [4, 3.5, 8, 7.5], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [4, 3.5, 8, 7.5], "rotation": 90, "texture": "#0"}
+			}
+		}
+	]
+}

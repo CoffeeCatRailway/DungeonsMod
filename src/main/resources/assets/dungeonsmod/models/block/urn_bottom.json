@@ -1,0 +1,41 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/cube",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "dungeonsmod:block/urn",
+		"particle": "block/cyan_stained_glass"
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0.5, 4, 4.5], "texture": "#0", "cullface": "north"},
+				"east": {"uv": [12, 0.5, 16, 4.5], "texture": "#0", "cullface": "east"},
+				"south": {"uv": [8, 0.5, 12, 4.5], "texture": "#0", "cullface": "south"},
+				"west": {"uv": [4, 0.5, 8, 4.5], "texture": "#0", "cullface": "west"},
+				"down": {"uv": [0, 8.5, 4, 12.5], "texture": "#0", "cullface": "down"}
+			}
+		},
+		{
+			"name": "left_handle_1",
+			"from": [-7, 8, 8],
+			"to": [0, 18, 8],
+			"faces": {
+				"north": {"uv": [4, 9, 5.75, 11.5], "texture": "#0", "cullface": "west"},
+				"south": {"uv": [5.75, 9, 4, 11.5], "texture": "#0", "cullface": "west"}
+			}
+		},
+		{
+			"name": "right_handle_1",
+			"from": [16, 8, 8],
+			"to": [23, 18, 8],
+			"faces": {
+				"north": {"uv": [5.75, 9, 4, 11.5], "texture": "#0", "cullface": "east"},
+				"south": {"uv": [4, 9, 5.75, 11.5], "texture": "#0", "cullface": "east"}
+			}
+		}
+	]
+}

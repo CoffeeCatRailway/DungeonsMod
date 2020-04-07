@@ -11,8 +11,10 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -28,6 +30,7 @@ public class ModBlock extends Block
 {
     public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public ModBlock(Properties properties)
@@ -109,6 +112,10 @@ public class ModBlock extends Block
         {
             state = state.with(FACING, context.getNearestLookingDirection().getOpposite());
         }
+        if (state.has(AXIS))
+        {
+            state = state.with(AXIS, context.getFace().getAxis());
+        }
         if (state.has(WATERLOGGED))
         {
             state = state.with(WATERLOGGED, context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER);
@@ -126,6 +133,25 @@ public class ModBlock extends Block
         if (state.has(FACING))
         {
             state = state.with(FACING, rotation.rotate(state.get(FACING)));
+        }
+        if (state.has(AXIS))
+        {
+            switch (rotation)
+            {
+                case COUNTERCLOCKWISE_90:
+                case CLOCKWISE_90:
+                    switch (state.get(AXIS))
+                    {
+                        case X:
+                            state = state.with(AXIS, Direction.Axis.Z);
+                        case Z:
+                            state = state.with(AXIS, Direction.Axis.X);
+                        default:
+                            break;
+                    }
+                default:
+                    break;
+            }
         }
         return state;
     }
