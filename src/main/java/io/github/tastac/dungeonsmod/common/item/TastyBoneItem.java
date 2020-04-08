@@ -4,8 +4,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
@@ -19,7 +17,7 @@ import net.minecraft.world.server.ServerWorld;
  * @author CoffeeCatRailway
  * Created: 7/04/2020
  */
-public class TastyBoneItem extends Item {
+public class TastyBoneItem extends ArtifactItem {
 
     public TastyBoneItem(Properties properties) {
         super(properties);
