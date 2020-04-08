@@ -1,13 +1,17 @@
 package io.github.tastac.dungeonsmod;
 
+import io.github.tastac.dungeonsmod.client.renderer.entity.RedstoneGolemRenderer;
 import io.github.tastac.dungeonsmod.common.block.TableBlock;
+import io.github.tastac.dungeonsmod.common.entity.RedstoneGolemEntity;
 import io.github.tastac.dungeonsmod.common.init.DungeonsBlocks;
+import io.github.tastac.dungeonsmod.common.init.DungeonsEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 /**
  * @author CoffeeCatRailway
@@ -25,5 +29,9 @@ public class ClientEvents {
         RenderTypeLookup.setRenderLayer(DungeonsBlocks.SIDE_TABLE.get(), RenderType.getSolid());
         RenderTypeLookup.setRenderLayer(DungeonsBlocks.TABLE.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(DungeonsBlocks.URN.get(), RenderType.getCutout());
+    }
+
+    public static void registerEntityRenderers() {
+        RenderingRegistry.registerEntityRenderingHandler(DungeonsEntities.REDSTONE_GOLEM.get(), RedstoneGolemRenderer::new);
     }
 }
