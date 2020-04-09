@@ -126,12 +126,12 @@ public class RedstoneGolemModel<T extends LivingEntity> extends BipedModel<T> {
 
         this.bipedRightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662f + (float)Math.PI) * 2.0f * limbSwingAmount * 0.5f / f;
         this.bipedRightArm.rotateAngleZ = 0.0f;
-        this.lowerArmRight.rotateAngleX = MathHelper.cos(limbSwing * 0.6662f + (float)Math.PI) * 2.5f * limbSwingAmount * 0.5f / f;
+        this.lowerArmRight.rotateAngleX = MathHelper.cos(limbSwing * 0.6662f + (float)Math.PI) * 1.5f * limbSwingAmount * 0.5f / f;
         this.lowerArmRight.rotateAngleZ = 0.0f;
 
         this.bipedLeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662f) * 2.0f * limbSwingAmount * 0.5f / f;
         this.bipedLeftArm.rotateAngleZ = 0.0f;
-        this.bipedLeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662f) * 2.5f * limbSwingAmount * 0.5f / f;
+        this.bipedLeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662f) * 1.5f * limbSwingAmount * 0.5f / f;
         this.bipedLeftArm.rotateAngleZ = 0.0f;
 
         this.bipedRightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount / f;
