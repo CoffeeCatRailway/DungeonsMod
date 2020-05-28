@@ -1,14 +1,12 @@
 modLoader="javafml"
 loaderVersion="[31,)"
-issueTrackerURL="http://my.issue.tracker/"
+issueTrackerURL="https://github.com/Tastac/DungeonsMod/issues"
 
 [[mods]]
-modId="${modid}"
+modId="${modId}"
 version="${version}"
 displayName="${name}"
-displayURL="http://example.com/"
 logoFile="dungeonsmod.png"
-credits="Retrop5 - Textures, Duke_Pigron - Textures & Models"
 authors="${author}"
 description='''
 This is a long form description of the mod. You can write whatever you want here
@@ -28,5 +26,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     modId="minecraft"
     mandatory=true
     versionRange="[1.15.2]"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.coffeecolor]]
+    modId="curios"
+    mandatory=true
+    versionRange="[FORGE-1.15.2-2,]"
     ordering="NONE"
     side="BOTH"

@@ -8,18 +8,23 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = "${project.version}-${project.mcVersion}"
-group = "${project.group}"
-archivesBaseName = "${project.modid}"
+group = "${project.group}.${project.modId}"
+archivesBaseName = project.modId
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: "${project.mcpChannel}", version: "${project.mcpMappings}"
+    mappings channel: project.mcpChannel.toString(), version: project.mcpMappings.toString()
     
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -56,7 +61,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'dungeonsmod', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'dungeonsmod', '--all', '--output', '"' + rootProject.file('src/generated/resources/') + '"', '--existing', '"' + rootProject.file('src/main/resources') + '"'
 
             mods {
                 dungeonsmod {
@@ -67,18 +72,82 @@ minecraft {
     }
 }
 
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
+
+configurations {
+    shade
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+
+    maven { // Curios
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven { // JustEnoughItems
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+
+    maven { // Registrate
+        name 'tterrag maven'
+        url "https://maven.tterrag.com/"
+    }
+    maven { // FishLib
+        name = "Jitpack"
+        url = "https://jitpack.io"
+    }
+}
+
 dependencies {
     minecraft "net.minecraftforge:forge:${project.mcVersion}-${project.forgeVersion}"
+
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.mcVersion}-${project.curiosVersion}")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.mcVersion}-${project.curiosVersion}:api")
+
+    runtimeOnly fg.deobf("mezz.jei:jei-${project.mcVersion}:${project.jeiVersion}")
+    compileOnly fg.deobf("mezz.jei:jei-${project.mcVersion}:${project.jeiVersion}:api")
+
+    def registrate = "com.tterrag.registrate:Registrate:MC${project.mcVersion}-${project.registrateVersion}"
+    implementation fg.deobf(registrate)
+    shade registrate
+
+    def fishLib = "com.github.Ocelot5836:FishLib:${project.mcVersion}-${project.fishLibVersion}"
+    implementation fg.deobf(fishLib)
+    shade fishLib
 }
 
 processResources {
     inputs.property("version", version)
-    inputs.property("modid", project.modid)
+    inputs.property("modId", project.modId)
     inputs.property("name", project.name)
     inputs.property("author", project.author)
     from(sourceSets.main.resources.srcDirs) {
         include 'META-INF/mods.toml'
-        expand 'version': version, 'modid': project.modid, 'name': project.name, 'author': project.author
+        expand 'version': version, 'modId': project.modId, 'name': project.name, 'author': project.author
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'META-INF/mods.toml'
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shade]
+    relocate 'com.tterrag.registrate', 'coffeecatrailway.repack.registrate'
+    relocate 'io.github.ocelot', 'io.github.ocelot.lib'
+}
+
+processResources {
+    inputs.property("version", version)
+    inputs.property("modId", project.modId)
+    inputs.property("name", project.name)
+    inputs.property("author", project.author)
+    from(sourceSets.main.resources.srcDirs) {
+        include 'META-INF/mods.toml'
+        expand 'version': version, 'modId': project.modId, 'name': project.name, 'author': project.author
     }
 
     from(sourceSets.main.resources.srcDirs) {
@@ -89,28 +158,15 @@ processResources {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "dungeonsmod",
-            "Specification-Vendor": "dungeonsmodareus",
-            "Specification-Version": "1",
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"dungeonsmodareus",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Specification-Title"     : "${archivesBaseName}",
+                "Specification-Vendor"    : "${project.author}",
+                "Specification-Version"   : "${project.version}",
+                "Implementation-Title"    : "${project.name}",
+                "Implementation-Version"  : "${project.version}",
+                "Implementation-Vendor"   : "${project.author}",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
-}
-
-jar.finalizedBy('reobfJar')
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
-    }
+    enabled = false
+    dependsOn(shadowJar { classifier = null })
 }

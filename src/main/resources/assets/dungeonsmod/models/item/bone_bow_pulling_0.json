@@ -1,6 +1,0 @@
-{
-    "parent": "dungeonsmod:item/bone_bow",
-    "textures": {
-        "layer0": "dungeonsmod:item/bone_bow_pulling_0"
-    }
-}
