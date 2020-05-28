@@ -4,17 +4,26 @@ import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.providers.ProviderType;
 import io.github.tastac.dungeonsmod.integration.CuriosIntegration;
 import io.github.tastac.dungeonsmod.integration.registrate.DungeonsLang;
+import io.github.tastac.dungeonsmod.network.PacketHandler;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.glfw.GLFW;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static io.github.tastac.dungeonsmod.DungeonsMod.MOD_ID;
@@ -27,6 +36,13 @@ public class DungeonsMod {
 
     public static final Logger LOGGER = Logger.getLogger(MOD_ID);
     public static Registrate REGISTRATE;
+
+    public static final List<KeyBinding> KEY_REGISTRY = new ArrayList<>();
+    public static final String KEY_CATEGORY = "key." + MOD_ID + ".category";
+
+    public static final KeyBinding USE_ARTIFACT_1 = registerKeyBinding("use_artifact_1", GLFW.GLFW_KEY_Z);
+    public static final KeyBinding USE_ARTIFACT_2 = registerKeyBinding("use_artifact_2", GLFW.GLFW_KEY_X);
+    public static final KeyBinding USE_ARTIFACT_3 = registerKeyBinding("use_artifact_3", GLFW.GLFW_KEY_C);
 
     public static final ItemGroup GROUP = new ItemGroup(MOD_ID) {
         @Override
@@ -52,10 +68,19 @@ public class DungeonsMod {
 
     public void setupClient(final FMLClientSetupEvent event) {
         ClientEvents.setupClient(event);
+
+        KEY_REGISTRY.forEach(ClientRegistry::registerKeyBinding);
+        DungeonsMod.LOGGER.info("Client Event: Register key binds");
     }
 
     public void setupCommon(FMLCommonSetupEvent event) {
+        PacketHandler.init();
+    }
 
+    private static KeyBinding registerKeyBinding(String id, final int key) {
+        KeyBinding bind = new KeyBinding("key." + MOD_ID + "." + id, key, KEY_CATEGORY);
+        KEY_REGISTRY.add(bind);
+        return bind;
     }
 
     public static ResourceLocation getLocation(String path) {

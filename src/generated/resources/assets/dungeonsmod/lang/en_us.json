@@ -1,3 +1,7 @@
 {
-  "itemGroup.dungeonsmod": "Dungeons Mod"
+  "itemGroup.dungeonsmod": "Dungeons Mod",
+  "key.dungeonsmod.category": "Dungeons Mod",
+  "key.dungeonsmod.use_artifact_1": "Activate First Artifact",
+  "key.dungeonsmod.use_artifact_2": "Activate Second Artifact",
+  "key.dungeonsmod.use_artifact_3": "Activate Third Artifact"
 }

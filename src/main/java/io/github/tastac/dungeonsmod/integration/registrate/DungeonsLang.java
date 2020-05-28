@@ -16,6 +16,11 @@ public class DungeonsLang implements NonNullConsumer<RegistrateLangProvider> {
     public void accept(RegistrateLangProvider provider) {
         provider.add(DungeonsMod.GROUP, "Dungeons Mod");
 
+        provider.add(DungeonsMod.KEY_CATEGORY, "Dungeons Mod");
+        provider.add(DungeonsMod.USE_ARTIFACT_1.getKeyDescription(), "Activate First Artifact");
+        provider.add(DungeonsMod.USE_ARTIFACT_2.getKeyDescription(), "Activate Second Artifact");
+        provider.add(DungeonsMod.USE_ARTIFACT_3.getKeyDescription(), "Activate Third Artifact");
+
         DungeonsMod.LOGGER.info("DataGen: Lang");
     }
 }

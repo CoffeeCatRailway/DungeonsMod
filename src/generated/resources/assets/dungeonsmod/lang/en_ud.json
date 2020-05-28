@@ -1,3 +1,7 @@
 {
-  "itemGroup.dungeonsmod": "poW suo\u01DDbun\u15E1"
+  "itemGroup.dungeonsmod": "poW suo\u01DDbun\u15E1",
+  "key.dungeonsmod.category": "poW suo\u01DDbun\u15E1",
+  "key.dungeonsmod.use_artifact_1": "\u0287\u0254\u0250\u025F\u0131\u0287\u0279\u2C6F \u0287s\u0279\u0131\u2132 \u01DD\u0287\u0250\u028C\u0131\u0287\u0254\u2C6F",
+  "key.dungeonsmod.use_artifact_2": "\u0287\u0254\u0250\u025F\u0131\u0287\u0279\u2C6F puo\u0254\u01DDS \u01DD\u0287\u0250\u028C\u0131\u0287\u0254\u2C6F",
+  "key.dungeonsmod.use_artifact_3": "\u0287\u0254\u0250\u025F\u0131\u0287\u0279\u2C6F p\u0279\u0131\u0265\u27D8 \u01DD\u0287\u0250\u028C\u0131\u0287\u0254\u2C6F"
 }
