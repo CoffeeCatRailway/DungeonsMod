@@ -16,6 +16,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -44,6 +45,8 @@ public class DungeonsMod {
     public static final KeyBinding USE_ARTIFACT_2 = registerKeyBinding("use_artifact_2", GLFW.GLFW_KEY_X);
     public static final KeyBinding USE_ARTIFACT_3 = registerKeyBinding("use_artifact_3", GLFW.GLFW_KEY_C);
 
+    public static DungeonsConfig.Server SERVER_CONFIG;
+
     public static final ItemGroup GROUP = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon() {
@@ -56,7 +59,9 @@ public class DungeonsMod {
         modEventBus.addListener(this::setupClient);
         modEventBus.addListener(this::setupCommon);
 
-        // CONFIG
+        final Pair<DungeonsConfig.Server, ForgeConfigSpec> serverConfig = new ForgeConfigSpec.Builder().configure(DungeonsConfig.Server::new);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, serverConfig.getRight());
+        SERVER_CONFIG = serverConfig.getLeft();
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CuriosIntegration::sendImc);
         MinecraftForge.EVENT_BUS.register(this);
