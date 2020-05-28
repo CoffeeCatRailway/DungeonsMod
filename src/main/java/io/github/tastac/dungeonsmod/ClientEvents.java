@@ -1,6 +1,7 @@
 package io.github.tastac.dungeonsmod;
 
 import io.github.tastac.dungeonsmod.client.renderer.entity.RedstoneGolemRenderer;
+import io.github.tastac.dungeonsmod.client.renderer.entity.RedstoneMonstrosityRenderer;
 import io.github.tastac.dungeonsmod.common.block.TableBlock;
 import io.github.tastac.dungeonsmod.common.entity.RedstoneGolemEntity;
 import io.github.tastac.dungeonsmod.common.init.DungeonsBlocks;
@@ -33,5 +34,6 @@ public class ClientEvents {
 
     public static void registerEntityRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(DungeonsEntities.REDSTONE_GOLEM.get(), RedstoneGolemRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(DungeonsEntities.REDSTONE_MONSTROSITY.get(), RedstoneMonstrosityRenderer::new);
     }
 }

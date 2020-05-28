@@ -2,13 +2,11 @@ package io.github.tastac.dungeonsmod.common.entity;
 
 import io.github.tastac.dungeonsmod.common.init.DungeonsEntities;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.brain.task.WalkRandomlyTask;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
@@ -16,13 +14,13 @@ import net.minecraft.world.World;
  * @author CoffeeCatRailway
  * Created: 8/04/2020
  */
-public class RedstoneGolemEntity extends MonsterEntity {
+public class RedstoneMonstrosityEntity extends MonsterEntity {
 
-    public RedstoneGolemEntity(World world) {
-        this(DungeonsEntities.REDSTONE_GOLEM.get(), world);
+    public RedstoneMonstrosityEntity(World world) {
+        this(DungeonsEntities.REDSTONE_MONSTROSITY.get(), world);
     }
 
-    public RedstoneGolemEntity(EntityType<? extends MonsterEntity> type, World world) {
+    public RedstoneMonstrosityEntity(EntityType<? extends MonsterEntity> type, World world) {
         super(type, world);
     }
 
