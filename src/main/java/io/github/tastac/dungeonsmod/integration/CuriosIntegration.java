@@ -23,10 +23,7 @@ import top.theillusivec4.curios.api.imc.CurioIMCMessage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 /**
  * @author CoffeeCatRailway
@@ -39,33 +36,22 @@ public class CuriosIntegration {
         DungeonsMod.LOGGER.info("Common Event: Register curios types");
     }
 
-    public static List<ItemStack> getArtifactStacks(PlayerEntity player) {
-        return getArtifactStacks(player, -1);
+    public static ItemStack getArtifactStack(PlayerEntity player) {
+        return getArtifactStack(player, -1);
     }
 
-    public static List<ItemStack> getArtifactStacks(PlayerEntity player, int slot) {
-        List<AtomicReference<ItemStack>> artifacts = new ArrayList<>();
-        artifacts.add(new AtomicReference<>(ItemStack.EMPTY));
+    public static ItemStack getArtifactStack(PlayerEntity player, int slot) {
+        AtomicReference<ItemStack> artifact = new AtomicReference<>(ItemStack.EMPTY);
 
         if (CuriosAPI.getType("charm").isPresent()) {
-            artifacts.clear();
-            for (int i = 0; i < (slot == -1 ? CuriosAPI.getType("charm").get().getSize() : 1); i++)
-                artifacts.add(new AtomicReference<>(ItemStack.EMPTY));
-
             LazyOptional<ICurioItemHandler> optional = CuriosAPI.getCuriosHandler(player);
             optional.ifPresent(handler -> {
-                if (slot == -1) {
-                    for (int i = 0; i < CuriosAPI.getType("charm").get().getSize(); i++)
-                        if (handler.getStackInSlot("charm", i).getItem() instanceof IDungeonsCurio)
-                            artifacts.get(i).set(handler.getStackInSlot("charm", i));
-                } else {
-                    if (handler.getStackInSlot("charm", slot).getItem() instanceof IDungeonsCurio)
-                        artifacts.get(slot).set(handler.getStackInSlot("charm", slot));
-                }
+                if (handler.getStackInSlot("charm", slot).getItem() instanceof IDungeonsCurio)
+                    artifact.set(handler.getStackInSlot("charm", slot));
             });
         }
 
-        return artifacts.stream().map(AtomicReference::get).collect(Collectors.toList());
+        return artifact.get();
     }
 
     public static ICapabilityProvider getCapability(ItemStack stack) {
@@ -91,12 +77,18 @@ public class CuriosIntegration {
 
         @Override
         public void onCurioTick(String identifier, int index, LivingEntity entity) {
-            ((IDungeonsCurio) stack.getItem()).curioTick(identifier, index, entity);
+            if (!entity.world.isRemote && entity instanceof PlayerEntity)
+                ((IDungeonsCurio) stack.getItem()).curioTick(stack, identifier, index, (PlayerEntity) entity);
         }
 
         @Override
         public boolean canEquip(String identifier, LivingEntity entity) {
             return ((IDungeonsCurio) stack.getItem()).canEquip(identifier, entity);
+        }
+
+        @Override
+        public boolean canUnequip(String identifier, LivingEntity entity) {
+            return ((IDungeonsCurio) stack.getItem()).canUnequip(identifier, entity);
         }
 
         @Override

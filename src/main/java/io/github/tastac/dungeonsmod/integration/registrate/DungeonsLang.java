@@ -10,8 +10,6 @@ import io.github.tastac.dungeonsmod.DungeonsMod;
  */
 public class DungeonsLang implements NonNullConsumer<RegistrateLangProvider> {
 
-    public static final DungeonsLang INSTANCE = new DungeonsLang();
-
     @Override
     public void accept(RegistrateLangProvider provider) {
         provider.add(DungeonsMod.GROUP, "Dungeons Mod");

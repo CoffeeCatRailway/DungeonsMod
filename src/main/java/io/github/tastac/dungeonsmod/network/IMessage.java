@@ -15,5 +15,5 @@ public interface IMessage<T> {
 
     T decode(PacketBuffer buffer);
 
-    void handle(T message, Supplier<NetworkEvent.Context> ctx);
+    void handle(T message, Supplier<NetworkEvent.Context> ctxSuppler);
 }

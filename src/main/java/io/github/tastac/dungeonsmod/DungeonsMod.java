@@ -4,7 +4,9 @@ import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.providers.ProviderType;
 import io.github.tastac.dungeonsmod.integration.CuriosIntegration;
 import io.github.tastac.dungeonsmod.integration.registrate.DungeonsLang;
+import io.github.tastac.dungeonsmod.integration.registrate.DungeonsTags;
 import io.github.tastac.dungeonsmod.network.PacketHandler;
+import io.github.tastac.dungeonsmod.registry.DungeonsItems;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -68,7 +70,11 @@ public class DungeonsMod {
 
         REGISTRATE = Registrate.create(MOD_ID);
         REGISTRATE.itemGroup(() -> GROUP);
-        REGISTRATE.addDataGenerator(ProviderType.LANG, DungeonsLang.INSTANCE);
+        REGISTRATE.addDataGenerator(ProviderType.BLOCK_TAGS, new DungeonsTags.Blocks());
+        REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, new DungeonsTags.Items());
+        REGISTRATE.addDataGenerator(ProviderType.LANG, new DungeonsLang());
+
+        DungeonsItems.load();
     }
 
     public void setupClient(final FMLClientSetupEvent event) {

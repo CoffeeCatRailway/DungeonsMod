@@ -20,6 +20,7 @@ public class PacketHandler {
                 .clientAcceptedVersions(PROTOCOL_VERSION::equals)
                 .serverAcceptedVersions(PROTOCOL_VERSION::equals)
                 .simpleChannel();
+        register(ActivateArtifactMessage.class, new ActivateArtifactMessage(0));
 
         DungeonsMod.LOGGER.info("Common Event: Register packets");
     }

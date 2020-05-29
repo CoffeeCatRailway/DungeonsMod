@@ -4,11 +4,11 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import io.github.tastac.dungeonsmod.DungeonsMod;
-import io.github.tastac.dungeonsmod.integration.CuriosIntegration;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -19,11 +19,17 @@ import net.minecraft.util.SoundEvents;
  */
 public interface IDungeonsCurio {
 
-    void curioTick(String identifier, int index, LivingEntity entity);
+    void curioTick(ItemStack stack, String identifier, int index, PlayerEntity player);
 
     default boolean canEquip(String identifier, LivingEntity entity) {
+//        if (entity instanceof PlayerEntity)
+//            return CuriosIntegration.getArtifactStack((PlayerEntity) entity).stream().map(ItemStack::isEmpty).anyMatch(bool -> true);
+        return true;
+    }
+
+    default boolean canUnequip(String identifier, LivingEntity entity) {
         if (entity instanceof PlayerEntity)
-            return CuriosIntegration.getArtifactStacks((PlayerEntity) entity).stream().map(ItemStack::isEmpty).anyMatch(bool -> true);
+            return this instanceof Item && !((PlayerEntity) entity).getCooldownTracker().hasCooldown((Item) this);
         return false;
     }
 
