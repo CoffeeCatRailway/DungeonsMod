@@ -14,6 +14,9 @@ import static io.github.tastac.dungeonsmod.DungeonsMod.REGISTRATE;
  */
 public class DungeonsItems {
 
+    public static final RegistryEntry<DeathCapMushroomArtifact> DEATH_CAP_MUSHROOM = REGISTRATE.item("death_cap_mushroom", DeathCapMushroomArtifact::new)
+            .defaultLang().tag(DungeonsTags.Items.CURIOS_CHARM).model(NonNullBiConsumer.noop()).register();
+
     public static void load() {
         DungeonsMod.LOGGER.info("Register items");
     }

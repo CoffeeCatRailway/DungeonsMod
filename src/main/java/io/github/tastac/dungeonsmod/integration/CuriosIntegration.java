@@ -103,7 +103,7 @@ public class CuriosIntegration {
 
         @Override
         public Multimap<String, AttributeModifier> getAttributeModifiers(String identifier) {
-            return ((IDungeonsCurio) stack.getItem()).getAttributeModifiers(identifier);
+            return ((IDungeonsCurio) stack.getItem()).getAttributeModifiers(stack, identifier);
         }
 
         @Override

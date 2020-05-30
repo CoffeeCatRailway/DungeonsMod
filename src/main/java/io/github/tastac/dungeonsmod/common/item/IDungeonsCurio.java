@@ -51,7 +51,7 @@ public interface IDungeonsCurio {
         entity.world.playSound(null, entity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1.0F, 1.0F);
     }
 
-    default Multimap<String, AttributeModifier> getAttributeModifiers(String identifier) {
+    default Multimap<String, AttributeModifier> getAttributeModifiers(ItemStack stack, String identifier) {
         return HashMultimap.create();
     }
 
