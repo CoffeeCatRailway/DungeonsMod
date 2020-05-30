@@ -1,5 +1,9 @@
 {
+  "item.dungeonsmod.artifact.cooldown": "Cooldown",
+  "item.dungeonsmod.artifact.duration": "Duration",
+  "item.dungeonsmod.artifact.second": "sec",
   "item.dungeonsmod.death_cap_mushroom": "Death Cap Mushroom",
+  "item.dungeonsmod.death_cap_mushroom.description": "Greatly increases attack and movement speed",
   "itemGroup.dungeonsmod": "\u00A77Dungeons Mod",
   "key.dungeonsmod.category": "Dungeons Mod",
   "key.dungeonsmod.use_artifact_1": "Activate First Artifact",

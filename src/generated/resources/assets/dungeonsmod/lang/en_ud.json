@@ -1,5 +1,9 @@
 {
+  "item.dungeonsmod.artifact.cooldown": "u\u028Dop\u05DFoo\u0186",
+  "item.dungeonsmod.artifact.duration": "uo\u0131\u0287\u0250\u0279n\u15E1",
+  "item.dungeonsmod.artifact.second": "\u0254\u01DDs",
   "item.dungeonsmod.death_cap_mushroom": "\u026Foo\u0279\u0265snW d\u0250\u0186 \u0265\u0287\u0250\u01DD\u15E1",
+  "item.dungeonsmod.death_cap_mushroom.description": "p\u01DD\u01DDds \u0287u\u01DD\u026F\u01DD\u028Co\u026F pu\u0250 \u029E\u0254\u0250\u0287\u0287\u0250 s\u01DDs\u0250\u01DD\u0279\u0254u\u0131 \u028E\u05DF\u0287\u0250\u01DD\u0279\u2141",
   "itemGroup.dungeonsmod": "poW suo\u01DDbun\u15E1\u3125\u00A7",
   "key.dungeonsmod.category": "poW suo\u01DDbun\u15E1",
   "key.dungeonsmod.use_artifact_1": "\u0287\u0254\u0250\u025F\u0131\u0287\u0279\u2C6F \u0287s\u0279\u0131\u2132 \u01DD\u0287\u0250\u028C\u0131\u0287\u0254\u2C6F",
