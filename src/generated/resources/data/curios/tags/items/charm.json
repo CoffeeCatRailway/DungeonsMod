@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "dungeonsmod:death_cap_mushroom"
+    "dungeonsmod:death_cap_mushroom",
+    "dungeonsmod:wind_horn"
   ]
 }

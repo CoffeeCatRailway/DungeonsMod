@@ -64,8 +64,17 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
 
     @Override
     public void curioTick(ItemStack stack, String identifier, int index, PlayerEntity player) {
+        CompoundNBT nbt = stack.getOrCreateTag();
+        float duration = nbt.getFloat(TAG_DURATION);
+        float cooldown = nbt.getFloat(TAG_COOLDOWN);
+        if (this.isActive(stack) && !player.getCooldownTracker().hasCooldown(this)) {
+            this.artifactTick(duration, cooldown, stack, identifier, index, player);
+            player.getCooldownTracker().setCooldown(this, (int) (cooldown + duration));
+        }
         if (this.isActive(stack)) this.activate(stack, false);
     }
+
+    public abstract void artifactTick(float duration, float cooldown, ItemStack stack, String identifier, int index, PlayerEntity player);
 
     public void activate(ItemStack stack, boolean active) {
         if (!stack.isEmpty())
