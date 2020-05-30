@@ -10,8 +10,9 @@ import io.github.tastac.dungeonsmod.registry.DungeonsItems;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -50,9 +51,25 @@ public class DungeonsMod {
     public static DungeonsConfig.Server SERVER_CONFIG;
 
     public static final ItemGroup GROUP = new ItemGroup(MOD_ID) {
+
+        private final ResourceLocation BACKGROUND_IMAGE = DungeonsMod.getLocation("textures/gui/container/creative_inventory/tab_items.png");
+        private final ResourceLocation TABS_IMAGE = DungeonsMod.getLocation("textures/gui/container/creative_inventory/tabs.png");
+
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(Items.STICK);
+            return new ItemStack(DungeonsItems.DEATH_CAP_MUSHROOM.get());
+        }
+
+        @Override
+        @OnlyIn(Dist.CLIENT)
+        public ResourceLocation getBackgroundImage() {
+            return BACKGROUND_IMAGE;
+        }
+
+        @Override
+        @OnlyIn(Dist.CLIENT)
+        public ResourceLocation getTabsImage() {
+            return TABS_IMAGE;
         }
     };
 
