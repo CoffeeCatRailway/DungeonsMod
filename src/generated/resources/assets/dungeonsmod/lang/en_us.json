@@ -4,6 +4,8 @@
   "item.dungeonsmod.artifact.second": "sec",
   "item.dungeonsmod.death_cap_mushroom": "Death Cap Mushroom",
   "item.dungeonsmod.death_cap_mushroom.description": "Greatly increases attack and movement speed",
+  "item.dungeonsmod.love_medallion": "Love Medallion",
+  "item.dungeonsmod.love_medallion.description": "Turn up to thee hostile mobs into allies for ten seconds before they disappear",
   "item.dungeonsmod.wind_horn": "Wind Horn",
   "item.dungeonsmod.wind_horn.description": "Pushes enemies away from you and slows them briefly",
   "itemGroup.dungeonsmod": "\u00A77Dungeons Mod",

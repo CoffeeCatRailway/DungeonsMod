@@ -24,9 +24,16 @@ import java.util.List;
  */
 public abstract class ArtifactItem extends Item implements IDungeonsCurio {
 
+    /*
+     * Main tags
+     */
     public static final String TAG_ACTIVE = "Activate";
     public static final String TAG_DURATION = "Duration";
     public static final String TAG_COOLDOWN = "Cooldown";
+    /*
+     * Additional tags
+     */
+    public static final String TAG_RANGE = "Range";
 
     private float duration;
     private float cooldown;
