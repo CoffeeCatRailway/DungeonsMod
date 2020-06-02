@@ -36,7 +36,7 @@ public class WindHornArtifact extends ArtifactItem {
     }
 
     @Override
-    public void artifactTick(float duration, float cooldown, ItemStack stack, String identifier, int index, PlayerEntity player) {
+    public void onArtifactActivate(float duration, float cooldown, ItemStack stack, String identifier, int index, PlayerEntity player) {
         float range = stack.getOrCreateTag().getFloat(TAG_RANGE);
         List<Entity> entities = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getBoundingBox().grow(range));
         Vec3d playerPos = player.getPositionVec();
