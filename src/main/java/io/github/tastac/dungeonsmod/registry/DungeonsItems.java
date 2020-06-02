@@ -2,8 +2,6 @@ package io.github.tastac.dungeonsmod.registry;
 
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.builders.ItemBuilder;
-import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateItemModelProvider;
 import com.tterrag.registrate.util.RegistryEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;

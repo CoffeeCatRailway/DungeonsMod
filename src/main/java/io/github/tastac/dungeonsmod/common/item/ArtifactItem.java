@@ -50,10 +50,14 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
         CompoundNBT stackNbt = stack.getOrCreateTag();
         if (!stackNbt.contains(TAG_ACTIVE, Constants.NBT.TAG_BYTE))
             stackNbt.putBoolean(TAG_ACTIVE, false);
-        if (!stackNbt.contains(TAG_DURATION, Constants.NBT.TAG_ANY_NUMERIC))
-            stackNbt.putFloat(TAG_DURATION, this.duration);
-        if (!stackNbt.contains(TAG_COOLDOWN, Constants.NBT.TAG_ANY_NUMERIC))
-            stackNbt.putFloat(TAG_COOLDOWN, this.cooldown);
+
+        if (this.duration > 0f)
+            if (!stackNbt.contains(TAG_DURATION, Constants.NBT.TAG_ANY_NUMERIC))
+                stackNbt.putFloat(TAG_DURATION, this.duration);
+
+        if (this.cooldown > 0f)
+            if (!stackNbt.contains(TAG_COOLDOWN, Constants.NBT.TAG_ANY_NUMERIC))
+                stackNbt.putFloat(TAG_COOLDOWN, this.cooldown);
         return CuriosIntegration.getCapability(stack);
     }
 

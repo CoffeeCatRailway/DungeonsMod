@@ -26,7 +26,7 @@ public interface IDungeonsCurio {
 
     void curioTick(ItemStack stack, String identifier, int index, PlayerEntity player);
 
-    default boolean canEquip(String identifier, LivingEntity entity) {
+    default boolean canEquip(ItemStack stack, String identifier, LivingEntity entity) {
         if (entity instanceof PlayerEntity) {
             Optional<CurioType> charm = CuriosAPI.getType("charm");
             if (charm.isPresent())
@@ -37,17 +37,17 @@ public interface IDungeonsCurio {
         return false;
     }
 
-    default boolean canUnequip(String identifier, LivingEntity entity) {
+    default boolean canUnequip(ItemStack stack, String identifier, LivingEntity entity) {
         if (entity instanceof PlayerEntity)
             return this instanceof Item && !((PlayerEntity) entity).getCooldownTracker().hasCooldown((Item) this);
         return false;
     }
 
-    default boolean canRightClickEquip() {
+    default boolean canRightClickEquip(ItemStack stack) {
         return DungeonsMod.SERVER_CONFIG.canRightClickEquip.get();
     }
 
-    default void playEquipSound(LivingEntity entity) {
+    default void playEquipSound(ItemStack stack, LivingEntity entity) {
         entity.world.playSound(null, entity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1.0F, 1.0F);
     }
 
@@ -55,7 +55,7 @@ public interface IDungeonsCurio {
         return HashMultimap.create();
     }
 
-    boolean hasRender(String identifier, LivingEntity entity);
+    boolean hasRender(ItemStack stack, String identifier, LivingEntity entity);
 
-    void render(String identifier, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageTicks, float headYaw, float headPitch);
+    void render(ItemStack stack, String identifier, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageTicks, float headYaw, float headPitch);
 }

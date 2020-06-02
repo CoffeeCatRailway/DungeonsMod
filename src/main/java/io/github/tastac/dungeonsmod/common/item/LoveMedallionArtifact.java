@@ -5,15 +5,18 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -41,23 +44,41 @@ public class LoveMedallionArtifact extends ArtifactItem {
         List<LivingEntity> entities = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getBoundingBox().grow(range)).stream()
                 .filter(entity -> entity instanceof LivingEntity).map(entity -> (LivingEntity) entity).collect(Collectors.toList());
 
-        for (int i = 3; i < entities.size(); i++) {
-            LivingEntity entity = entities.get(i);
-            if (entity.getClassification(false) == EntityClassification.MONSTER) {
-                MonsterEntity monster = (MonsterEntity) entity;
-                LivingEntity target = entity.world.getClosestEntity(entities, new EntityPredicate().setDistance(range).allowFriendlyFire(), monster, entity.getPosX(), entity.getPosYEye(), entity.getPosZ());
-                if (target != null)
-                    monster.setAttackTarget(target);
+        if (entities.size() > 3) {
+            for (int i = 0; i < 3; i++)
+                this.setTargets(entities, i, range);
+        } else {
+            if (entities.size() > 2)
+                this.setTargets(entities, 0, range);
+        }
+    }
+
+    private void setTargets(List<LivingEntity> entities, int startIndex, float range) {
+        LivingEntity entity = entities.get(startIndex);
+        World world = entity.world;
+        if (entity.getClassification(false) == EntityClassification.MONSTER) {
+            LivingEntity target;
+            do {
+                target = world.getClosestEntity(entities, new EntityPredicate().setDistance(range).allowFriendlyFire(), entity, entity.getPosX(), entity.getPosYEye(), entity.getPosZ());
+            } while (!entities.contains(target));
+
+            if (target != null) {
+                entity.setRevengeTarget(target);
+                Random rand = world.rand;
+                float xs = rand.nextFloat() * 0.5f - 0.25f;
+                float ys = rand.nextFloat() * 0.5f - 0.15f;
+                float zs = rand.nextFloat() * 0.5f - 0.25f;
+                ((ServerWorld) world).spawnParticle(ParticleTypes.HEART, entity.getPosX(), entity.getPosY() + 1.5f, entity.getPosZ(), 3, xs, ys, zs, 1);
             }
         }
     }
 
     @Override
-    public boolean hasRender(String identifier, LivingEntity entity) {
+    public boolean hasRender(ItemStack stack, String identifier, LivingEntity entity) {
         return false;
     }
 
     @Override
-    public void render(String identifier, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageTicks, float headYaw, float headPitch) {
+    public void render(ItemStack stack, String identifier, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageTicks, float headYaw, float headPitch) {
     }
 }

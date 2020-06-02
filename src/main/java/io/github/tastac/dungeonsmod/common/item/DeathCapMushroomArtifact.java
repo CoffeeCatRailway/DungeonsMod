@@ -25,11 +25,11 @@ public class DeathCapMushroomArtifact extends ArtifactItem {
     }
 
     @Override
-    public boolean hasRender(String identifier, LivingEntity entity) {
+    public boolean hasRender(ItemStack stack, String identifier, LivingEntity entity) {
         return false;
     }
 
     @Override
-    public void render(String identifier, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageTicks, float headYaw, float headPitch) {
+    public void render(ItemStack stack, String identifier, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageTicks, float headYaw, float headPitch) {
     }
 }

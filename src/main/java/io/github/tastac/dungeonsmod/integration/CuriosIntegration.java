@@ -83,22 +83,22 @@ public class CuriosIntegration {
 
         @Override
         public boolean canEquip(String identifier, LivingEntity entity) {
-            return ((IDungeonsCurio) stack.getItem()).canEquip(identifier, entity);
+            return ((IDungeonsCurio) stack.getItem()).canEquip(stack, identifier, entity);
         }
 
         @Override
         public boolean canUnequip(String identifier, LivingEntity entity) {
-            return ((IDungeonsCurio) stack.getItem()).canUnequip(identifier, entity);
+            return ((IDungeonsCurio) stack.getItem()).canUnequip(stack, identifier, entity);
         }
 
         @Override
         public boolean canRightClickEquip() {
-            return ((IDungeonsCurio) stack.getItem()).canRightClickEquip();
+            return ((IDungeonsCurio) stack.getItem()).canRightClickEquip(stack);
         }
 
         @Override
         public void playEquipSound(LivingEntity entity) {
-            ((IDungeonsCurio) stack.getItem()).playEquipSound(entity);
+            ((IDungeonsCurio) stack.getItem()).playEquipSound(stack, entity);
         }
 
         @Override
@@ -108,13 +108,13 @@ public class CuriosIntegration {
 
         @Override
         public boolean hasRender(String identifier, LivingEntity entity) {
-            return ((IDungeonsCurio) stack.getItem()).hasRender(identifier, entity);
+            return ((IDungeonsCurio) stack.getItem()).hasRender(stack, identifier, entity);
         }
 
         @Override
         public void render(String identifier, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageTicks, float headYaw, float headPitch) {
             if (this.hasRender(identifier, entity))
-                ((IDungeonsCurio) stack.getItem()).render(identifier, matrixStack, renderTypeBuffer, light, entity, limbSwing, limbSwingAmount, partialTicks, ageTicks, headYaw, headPitch);
+                ((IDungeonsCurio) stack.getItem()).render(stack, identifier, matrixStack, renderTypeBuffer, light, entity, limbSwing, limbSwingAmount, partialTicks, ageTicks, headYaw, headPitch);
         }
     }
 }
