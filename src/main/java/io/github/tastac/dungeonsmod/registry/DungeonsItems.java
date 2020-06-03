@@ -28,8 +28,11 @@ public class DungeonsItems {
     public static final RegistryEntry<LoveMedallionArtifact> LOVE_MEDALLION = reisterArtifact("love_medallion", "Turn up to thee hostile mobs into allies for ten seconds before they disappear",
             LoveMedallionArtifact::new).model(NonNullBiConsumer.noop()).register();
 
-    public static final RegistryEntry<IronHideAmuletArtifact> IRON_HIDE_AMULET = reisterArtifact("iron_hide_amulet", "It provides a major boost to defense for a short time.",
+    public static final RegistryEntry<IronHideAmuletArtifact> IRON_HIDE_AMULET = reisterArtifact("iron_hide_amulet", "It provides a major boost to defense for a short time",
             IronHideAmuletArtifact::new).model(NonNullBiConsumer.noop()).register();
+
+    public static final RegistryEntry<BootsOfSwistnessArtifact> BOOTS_OF_SWISTNESS = reisterArtifact("boots_of_swiftness", "Gives a short boost to movement speed",
+            BootsOfSwistnessArtifact::new).model(NonNullBiConsumer.noop()).register();
 
     private static <T extends ArtifactItem> ItemBuilder<T, Registrate> reisterArtifact(String id, String description, NonNullFunction<Item.Properties, T> factory) {
         DungeonsLang.ARTIFACT_LANGS.put("item." + DungeonsMod.MOD_ID + "." + id + ".description", description);

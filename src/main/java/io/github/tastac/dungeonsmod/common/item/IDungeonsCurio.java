@@ -1,13 +1,10 @@
 package io.github.tastac.dungeonsmod.common.item;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import io.github.tastac.dungeonsmod.integration.CuriosIntegration;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -49,10 +46,6 @@ public interface IDungeonsCurio {
 
     default void playEquipSound(ItemStack stack, LivingEntity entity) {
         entity.world.playSound(null, entity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-    }
-
-    default Multimap<String, AttributeModifier> getAttributeModifiers(ItemStack stack, String identifier) {
-        return HashMultimap.create();
     }
 
     boolean hasRender(ItemStack stack, String identifier, LivingEntity entity);

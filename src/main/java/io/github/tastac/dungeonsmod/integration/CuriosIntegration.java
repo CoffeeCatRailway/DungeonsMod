@@ -1,12 +1,10 @@
 package io.github.tastac.dungeonsmod.integration;
 
-import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import io.github.tastac.dungeonsmod.common.item.IDungeonsCurio;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
@@ -99,11 +97,6 @@ public class CuriosIntegration {
         @Override
         public void playEquipSound(LivingEntity entity) {
             ((IDungeonsCurio) stack.getItem()).playEquipSound(stack, entity);
-        }
-
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(String identifier) {
-            return ((IDungeonsCurio) stack.getItem()).getAttributeModifiers(stack, identifier);
         }
 
         @Override
