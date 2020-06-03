@@ -64,7 +64,7 @@ public class BootsOfSwistnessArtifact extends AttributeArtifactItem {
         float x = leg.rotationPointX;
         float y = leg.rotationPointY;
         float z = leg.rotationPointZ;
-        matrixStack.translate(-x / 16f, -y / 16f, (z - .125f) / 16f);
+        matrixStack.translate(-x / 16f, -y / 16f, (z - .56f) / 16f);
 
         float xr = leg.rotateAngleX;
         float yr = leg.rotateAngleY;
