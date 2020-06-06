@@ -1,8 +1,10 @@
 package io.github.tastac.dungeonsmod;
 
+import io.github.tastac.dungeonsmod.client.entity.TotemOfRegenerationRenderer;
 import io.github.tastac.dungeonsmod.integration.CuriosIntegration;
 import io.github.tastac.dungeonsmod.network.ActivateArtifactMessage;
 import io.github.tastac.dungeonsmod.network.PacketHandler;
+import io.github.tastac.dungeonsmod.registry.DungeonsEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -11,6 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -22,8 +25,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 @Mod.EventBusSubscriber(modid = DungeonsMod.MOD_ID)
 public class ClientEvents {
 
-    public static void setupClient(final FMLClientSetupEvent event) {
+    public static void setupClient(FMLClientSetupEvent event) {
+        entityRenderers();
+    }
 
+    private static void entityRenderers() {
+        RenderingRegistry.registerEntityRenderingHandler(DungeonsEntities.TOTEM_OF_REGENERATION.get(), TotemOfRegenerationRenderer::new);
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -6,6 +6,7 @@ import io.github.tastac.dungeonsmod.integration.CuriosIntegration;
 import io.github.tastac.dungeonsmod.integration.registrate.DungeonsLang;
 import io.github.tastac.dungeonsmod.integration.registrate.DungeonsTags;
 import io.github.tastac.dungeonsmod.network.PacketHandler;
+import io.github.tastac.dungeonsmod.registry.DungeonsEntities;
 import io.github.tastac.dungeonsmod.registry.DungeonsItems;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemGroup;
@@ -16,6 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -24,11 +26,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static io.github.tastac.dungeonsmod.DungeonsMod.MOD_ID;
 
@@ -38,7 +41,7 @@ public class DungeonsMod {
 
     public static final String MOD_ID = "dungeonsmod";
 
-    public static final Logger LOGGER = Logger.getLogger(MOD_ID);
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     public static Registrate REGISTRATE;
 
     public static final List<KeyBinding> KEY_REGISTRY = new ArrayList<>();
@@ -92,9 +95,10 @@ public class DungeonsMod {
         REGISTRATE.addDataGenerator(ProviderType.LANG, new DungeonsLang());
 
         DungeonsItems.load();
+        DungeonsEntities.load();
     }
 
-    public void setupClient(final FMLClientSetupEvent event) {
+    public void setupClient(FMLClientSetupEvent event) {
         ClientEvents.setupClient(event);
 
         KEY_REGISTRY.forEach(ClientRegistry::registerKeyBinding);
