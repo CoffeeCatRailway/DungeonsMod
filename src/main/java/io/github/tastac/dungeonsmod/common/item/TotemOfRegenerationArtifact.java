@@ -32,6 +32,7 @@ public class TotemOfRegenerationArtifact extends ArtifactItem {
 
     public TotemOfRegenerationArtifact(Properties prop) {
         super(prop, 0f, 25f);
+        this.hasManualSideCheck(true);
     }
 
     @Nullable

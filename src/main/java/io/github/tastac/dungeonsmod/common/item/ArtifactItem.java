@@ -39,6 +39,7 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
     private float cooldown;
 
     public ArtifactItem(Properties prop, float duration, float cooldown) {
+    private boolean manualSideCheck = false;
         super(prop.maxStackSize(1));
         this.duration = duration * 20f;
         this.cooldown = cooldown * 20f;
@@ -81,6 +82,7 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
         if (this.isActive(stack) && !player.getCooldownTracker().hasCooldown(this)) {
             this.onArtifactActivate(duration, cooldown, stack, identifier, index, player);
             player.getCooldownTracker().setCooldown(this, (int) (cooldown + duration));
+            if (this.isRemote(player.world))
         }
         if (this.isActive(stack)) this.activate(stack, false);
     }
@@ -97,5 +99,17 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
         if (nbt.contains(TAG_ACTIVE, Constants.NBT.TAG_BYTE))
             return nbt.getBoolean(TAG_ACTIVE);
         return false;
+    }
+
+    protected boolean isRemote(World world) {
+        return !world.isRemote || this.isManualSideCheck();
+    }
+
+    public boolean isManualSideCheck() {
+        return manualSideCheck;
+    }
+
+    protected void hasManualSideCheck(boolean manualSideCheck) {
+        this.manualSideCheck = manualSideCheck;
     }
 }

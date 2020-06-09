@@ -75,7 +75,7 @@ public class CuriosIntegration {
 
         @Override
         public void onCurioTick(String identifier, int index, LivingEntity entity) {
-            if (!entity.world.isRemote && entity instanceof PlayerEntity)
+            if (entity instanceof PlayerEntity)
                 ((IDungeonsCurio) stack.getItem()).curioTick(stack, identifier, index, (PlayerEntity) entity);
         }
 
