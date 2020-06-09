@@ -1,6 +1,6 @@
 package io.github.tastac.dungeonsmod.registry;
 
-import com.tterrag.registrate.util.RegistryEntry;
+import com.tterrag.registrate.util.entry.RegistryEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import io.github.tastac.dungeonsmod.common.entity.TotemOfRegenerationEntity;
