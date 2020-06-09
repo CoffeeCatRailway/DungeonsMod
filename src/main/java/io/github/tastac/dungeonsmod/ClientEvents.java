@@ -15,7 +15,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 /**
  * @author CoffeeCatRailway
@@ -25,11 +24,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 @Mod.EventBusSubscriber(modid = DungeonsMod.MOD_ID)
 public class ClientEvents {
 
-    public static void setupClient(FMLClientSetupEvent event) {
-        entityRenderers();
-    }
-
-    private static void entityRenderers() {
+    public static void entityRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(DungeonsEntities.TOTEM_OF_REGENERATION.get(), TotemOfRegenerationRenderer::new);
     }
 

@@ -44,7 +44,7 @@ public class DungeonsMod {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     public static Registrate REGISTRATE;
 
-    public static final List<KeyBinding> KEY_REGISTRY = new ArrayList<>();
+    private static final List<KeyBinding> KEY_REGISTRY = new ArrayList<>();
     public static final String KEY_CATEGORY = "key." + MOD_ID + ".category";
 
     public static final KeyBinding USE_ARTIFACT_1 = registerKeyBinding("use_artifact_1", GLFW.GLFW_KEY_Z);
@@ -98,14 +98,14 @@ public class DungeonsMod {
         DungeonsEntities.load();
     }
 
-    public void setupClient(FMLClientSetupEvent event) {
-        ClientEvents.setupClient(event);
+    public void setupClient(final FMLClientSetupEvent event) {
+        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientEvents::entityRenderers);
 
         KEY_REGISTRY.forEach(ClientRegistry::registerKeyBinding);
         DungeonsMod.LOGGER.info("Client Event: Register key binds");
     }
 
-    public void setupCommon(FMLCommonSetupEvent event) {
+    public void setupCommon(final FMLCommonSetupEvent event) {
         PacketHandler.init();
     }
 
