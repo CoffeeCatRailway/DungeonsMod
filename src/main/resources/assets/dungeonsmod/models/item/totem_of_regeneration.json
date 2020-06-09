@@ -126,7 +126,8 @@
 			"scale": [0.55, 0.55, 0.55]
 		},
 		"ground": {
-			"translation": [0, 4, 0]
+			"translation": [0, 2, 0],
+			"scale": [0.75, 0.75, 0.75]
 		},
 		"gui": {
 			"rotation": [25, 135, 0],
