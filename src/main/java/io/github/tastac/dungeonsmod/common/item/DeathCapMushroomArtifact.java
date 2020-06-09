@@ -19,9 +19,9 @@ public class DeathCapMushroomArtifact extends ArtifactItem {
     }
 
     @Override
-    public void onArtifactActivate(float duration, float cooldown, ItemStack stack, String identifier, int index, PlayerEntity player) {
-        player.addPotionEffect(new EffectInstance(Effects.STRENGTH, (int) duration, 1, false, false, true));
-        player.addPotionEffect(new EffectInstance(Effects.SPEED, (int) duration, 1, false, false, true));
+    public void onArtifactActivate(float durationInTicks, float cooldownInTicks, ItemStack stack, String identifier, int index, PlayerEntity player) {
+        player.addPotionEffect(new EffectInstance(Effects.STRENGTH, (int) durationInTicks, 1, false, false, true));
+        player.addPotionEffect(new EffectInstance(Effects.SPEED, (int) durationInTicks, 1, false, false, true));
     }
 
     @Override

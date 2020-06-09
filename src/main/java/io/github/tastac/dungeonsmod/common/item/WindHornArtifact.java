@@ -36,7 +36,7 @@ public class WindHornArtifact extends ArtifactItem {
     }
 
     @Override
-    public void onArtifactActivate(float duration, float cooldown, ItemStack stack, String identifier, int index, PlayerEntity player) {
+    public void onArtifactActivate(float durationInTicks, float cooldownInTicks, ItemStack stack, String identifier, int index, PlayerEntity player) {
         float range = stack.getOrCreateTag().getFloat(TAG_RANGE);
         List<Entity> entities = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getBoundingBox().grow(range));
         Vec3d playerPos = player.getPositionVec();
@@ -47,7 +47,7 @@ public class WindHornArtifact extends ArtifactItem {
                 Vec3d vel = new Vec3d(entityPos.x - playerPos.x, entityPos.y - playerPos.y, entityPos.z - playerPos.z).normalize().mul(range, range, range);
 
                 entity.addVelocity(vel.x, vel.y, vel.z);
-                ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, (int) cooldown, 0, false, false, true));
+                ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, (int) cooldownInTicks, 0, false, false, true));
             }
         });
     }

@@ -16,8 +16,8 @@ public abstract class AttributeArtifactItem extends ArtifactItem {
 
     private final Map<String, Multimap<String, AttributeModifier>> CREATED_ATTRIBUTES = new HashMap<>();
 
-    public AttributeArtifactItem(Properties prop, float duration, float cooldown) {
-        super(prop, duration, cooldown);
+    public AttributeArtifactItem(Properties prop, float durationInSeconds, float cooldownInSeconds) {
+        super(prop, durationInSeconds, cooldownInSeconds);
     }
 
     @Override
@@ -30,9 +30,9 @@ public abstract class AttributeArtifactItem extends ArtifactItem {
     }
 
     @Override
-    public void onArtifactActivate(float duration, float cooldown, ItemStack stack, String identifier, int index, PlayerEntity player) {
+    public void onArtifactActivate(float durationInTicks, float cooldownInTicks, ItemStack stack, String identifier, int index, PlayerEntity player) {
         player.getAttributes().applyAttributeModifiers(this.getOrCreateAttributeModifiers(stack, identifier));
-        player.getCooldownTracker().setCooldown(this, (int) duration);
+        player.getCooldownTracker().setCooldown(this, (int) durationInTicks);
     }
 
     public abstract Multimap<String, AttributeModifier> getAttributeModifiers(ItemStack stack, String identifier);

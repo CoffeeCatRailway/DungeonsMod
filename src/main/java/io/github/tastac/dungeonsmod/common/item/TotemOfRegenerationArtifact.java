@@ -33,6 +33,7 @@ public class TotemOfRegenerationArtifact extends ArtifactItem {
     public TotemOfRegenerationArtifact(Properties prop) {
         super(prop, 0f, 25f);
         this.hasManualSideCheck(true);
+        this.showDuration(false);
     }
 
     @Nullable
@@ -53,7 +54,7 @@ public class TotemOfRegenerationArtifact extends ArtifactItem {
     }
 
     @Override
-    public void onArtifactActivate(float duration, float cooldown, ItemStack stack, String identifier, int index, PlayerEntity player) {
+    public void onArtifactActivate(float durationInTicks, float cooldownInTicks, ItemStack stack, String identifier, int index, PlayerEntity player) {
         World world = player.world;
         TotemOfRegenerationEntity totem = new TotemOfRegenerationEntity(DungeonsEntities.TOTEM_OF_REGENERATION.get(), world);
         totem.setItem(stack);

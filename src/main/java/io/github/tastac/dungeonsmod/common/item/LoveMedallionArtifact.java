@@ -39,7 +39,7 @@ public class LoveMedallionArtifact extends ArtifactItem {
     }
 
     @Override
-    public void onArtifactActivate(float duration, float cooldown, ItemStack stack, String identifier, int index, PlayerEntity player) {
+    public void onArtifactActivate(float durationInTicks, float cooldownInTicks, ItemStack stack, String identifier, int index, PlayerEntity player) {
         float range = stack.getOrCreateTag().getFloat(TAG_RANGE);
         List<LivingEntity> entities = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getBoundingBox().grow(range)).stream()
                 .filter(entity -> entity instanceof LivingEntity).map(entity -> (LivingEntity) entity).collect(Collectors.toList());

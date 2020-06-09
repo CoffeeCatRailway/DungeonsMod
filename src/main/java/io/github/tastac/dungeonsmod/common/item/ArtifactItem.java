@@ -27,22 +27,27 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
     /*
      * Main tags
      */
-    public static final String TAG_ACTIVE = "Activate";
-    public static final String TAG_DURATION = "Duration";
-    public static final String TAG_COOLDOWN = "Cooldown";
+    public static final String TAG_ACTIVE = "Active";
+    public static final String TAG_DURATION = "DurationInTicks";
+    public static final String TAG_COOLDOWN = "CooldownInTicks";
     /*
      * Additional tags
      */
     public static final String TAG_RANGE = "Range";
 
-    private float duration;
-    private float cooldown;
+    private float durationInTicks;
+    private float cooldownInTicks;
 
-    public ArtifactItem(Properties prop, float duration, float cooldown) {
     private boolean manualSideCheck = false;
+    private boolean showDuration;
+    private boolean showCooldown;
+
+    public ArtifactItem(Properties prop, float durationInSeconds, float cooldownInSeconds) {
         super(prop.maxStackSize(1));
-        this.duration = duration * 20f;
-        this.cooldown = cooldown * 20f;
+        this.durationInTicks = durationInSeconds * 20f;
+        this.cooldownInTicks = cooldownInSeconds * 20f;
+        this.showDuration = this.durationInTicks > 0f;
+        this.showCooldown = this.cooldownInTicks > 0f;
     }
 
     @Nullable
@@ -52,13 +57,13 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
         if (!stackNbt.contains(TAG_ACTIVE, Constants.NBT.TAG_BYTE))
             stackNbt.putBoolean(TAG_ACTIVE, false);
 
-        if (this.duration > 0f)
+        if (this.showDuration)
             if (!stackNbt.contains(TAG_DURATION, Constants.NBT.TAG_ANY_NUMERIC))
-                stackNbt.putFloat(TAG_DURATION, this.duration);
+                stackNbt.putFloat(TAG_DURATION, this.durationInTicks);
 
-        if (this.cooldown > 0f)
+        if (this.showCooldown)
             if (!stackNbt.contains(TAG_COOLDOWN, Constants.NBT.TAG_ANY_NUMERIC))
-                stackNbt.putFloat(TAG_COOLDOWN, this.cooldown);
+                stackNbt.putFloat(TAG_COOLDOWN, this.cooldownInTicks);
         return CuriosIntegration.getCapability(stack);
     }
 
@@ -77,17 +82,17 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
     @Override
     public void curioTick(ItemStack stack, String identifier, int index, PlayerEntity player) {
         CompoundNBT nbt = stack.getOrCreateTag();
-        float duration = nbt.getFloat(TAG_DURATION);
-        float cooldown = nbt.getFloat(TAG_COOLDOWN);
+        float durationInTicks = nbt.getFloat(TAG_DURATION);
+        float cooldownInTicks = nbt.getFloat(TAG_COOLDOWN);
         if (this.isActive(stack) && !player.getCooldownTracker().hasCooldown(this)) {
-            this.onArtifactActivate(duration, cooldown, stack, identifier, index, player);
-            player.getCooldownTracker().setCooldown(this, (int) (cooldown + duration));
             if (this.isRemote(player.world))
+                this.onArtifactActivate(durationInTicks, cooldownInTicks, stack, identifier, index, player);
+            player.getCooldownTracker().setCooldown(this, (int) (cooldownInTicks + durationInTicks));
         }
         if (this.isActive(stack)) this.activate(stack, false);
     }
 
-    public abstract void onArtifactActivate(float duration, float cooldown, ItemStack stack, String identifier, int index, PlayerEntity player);
+    public abstract void onArtifactActivate(float durationInTicks, float cooldownInTicks, ItemStack stack, String identifier, int index, PlayerEntity player);
 
     public void activate(ItemStack stack, boolean active) {
         if (!stack.isEmpty())
@@ -111,5 +116,21 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
 
     protected void hasManualSideCheck(boolean manualSideCheck) {
         this.manualSideCheck = manualSideCheck;
+    }
+
+    public boolean isShowingDuration() {
+        return showDuration;
+    }
+
+    protected void showDuration(boolean showDuration) {
+        this.showDuration = showDuration;
+    }
+
+    public boolean isShowingCooldown() {
+        return showCooldown;
+    }
+
+    protected void showCooldown(boolean showCooldown) {
+        this.showCooldown = showCooldown;
     }
 }
