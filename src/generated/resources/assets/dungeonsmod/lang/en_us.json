@@ -1,4 +1,5 @@
 {
+  "entity.dungeonsmod.totem_of_regeneration": "Totem Of Regeneration",
   "item.dungeonsmod.artifact.blocks": "blocks",
   "item.dungeonsmod.artifact.cooldown": "Cooldown",
   "item.dungeonsmod.artifact.duration": "Duration",
@@ -11,6 +12,9 @@
   "item.dungeonsmod.iron_hide_amulet.description": "It provides a major boost to defense for a short time",
   "item.dungeonsmod.love_medallion": "Love Medallion",
   "item.dungeonsmod.love_medallion.description": "Turn up to thee hostile mobs into allies for ten seconds before they disappear",
+  "item.dungeonsmod.totem_of_regeneration": "Totem Of Regeneration",
+  "item.dungeonsmod.totem_of_regeneration.description": "A totem that creates a circular aura, healing you and your allies",
+  "item.dungeonsmod.totem_of_regeneration.heal_amount": "Hearts Healed",
   "item.dungeonsmod.wind_horn": "Wind Horn",
   "item.dungeonsmod.wind_horn.description": "Pushes enemies away from you and slows them briefly",
   "itemGroup.dungeonsmod": "\u00A77Dungeons Mod",
