@@ -27,15 +27,7 @@ public class LoveMedallionArtifact extends ArtifactItem {
 
     public LoveMedallionArtifact(Properties prop) {
         super(prop, 10f, 30f);
-    }
-
-    @Nullable
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
-        CompoundNBT stackNbt = stack.getOrCreateTag();
-        if (!stackNbt.contains(TAG_RANGE, Constants.NBT.TAG_ANY_NUMERIC))
-            stackNbt.putFloat(TAG_RANGE, 5f);
-        return super.initCapabilities(stack, nbt);
+        this.setRange(5f, false);
     }
 
     @Override

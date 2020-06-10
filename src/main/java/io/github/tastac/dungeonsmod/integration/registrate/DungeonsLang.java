@@ -17,7 +17,8 @@ public class DungeonsLang implements NonNullConsumer<RegistrateLangProvider> {
 
     public static final Map<String, String> ARTIFACT_LANGS = new HashMap<>();
     public static final String ARTIFACT_DESC_PREFIX = "item." + DungeonsMod.MOD_ID + ".artifact.";
-    public static final String ARTIFACT_DESC_SECOND = "item." + DungeonsMod.MOD_ID + ".artifact.second";
+    public static final String ARTIFACT_DESC_SECOND = ARTIFACT_DESC_PREFIX + "second";
+    public static final String ARTIFACT_DESC_BLOCKS = ARTIFACT_DESC_PREFIX + "blocks";
 
     @Override
     public void accept(RegistrateLangProvider provider) {
@@ -31,6 +32,7 @@ public class DungeonsLang implements NonNullConsumer<RegistrateLangProvider> {
         provider.add(ARTIFACT_DESC_PREFIX + "duration", "Duration");
         provider.add(ARTIFACT_DESC_PREFIX + "cooldown", "Cooldown");
         provider.add(ARTIFACT_DESC_SECOND, "sec");
+        provider.add(ARTIFACT_DESC_BLOCKS, "blocks");
         ARTIFACT_LANGS.forEach(provider::add);
 
         DungeonsMod.LOGGER.info("DataGen: Lang");

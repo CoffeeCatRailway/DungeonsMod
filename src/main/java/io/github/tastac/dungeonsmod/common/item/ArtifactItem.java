@@ -37,17 +37,19 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
 
     private float durationInTicks;
     private float cooldownInTicks;
+    private float range = 0f;
 
     private boolean manualSideCheck = false;
     private boolean showDuration;
     private boolean showCooldown;
+    private boolean showRange;
 
     public ArtifactItem(Properties prop, float durationInSeconds, float cooldownInSeconds) {
         super(prop.maxStackSize(1));
         this.durationInTicks = durationInSeconds * 20f;
         this.cooldownInTicks = cooldownInSeconds * 20f;
-        this.showDuration = this.durationInTicks > 0f;
-        this.showCooldown = this.cooldownInTicks > 0f;
+        this.showDuration = this.durationInTicks != 0f;
+        this.showCooldown = this.cooldownInTicks != 0f;
     }
 
     @Nullable
@@ -57,13 +59,17 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
         if (!stackNbt.contains(TAG_ACTIVE, Constants.NBT.TAG_BYTE))
             stackNbt.putBoolean(TAG_ACTIVE, false);
 
-        if (this.showDuration)
+        if (this.durationInTicks > 0f)
             if (!stackNbt.contains(TAG_DURATION, Constants.NBT.TAG_ANY_NUMERIC))
                 stackNbt.putFloat(TAG_DURATION, this.durationInTicks);
 
-        if (this.showCooldown)
+        if (this.cooldownInTicks > 0f)
             if (!stackNbt.contains(TAG_COOLDOWN, Constants.NBT.TAG_ANY_NUMERIC))
                 stackNbt.putFloat(TAG_COOLDOWN, this.cooldownInTicks);
+
+        if (this.hasRange())
+            if (!stackNbt.contains(TAG_RANGE, Constants.NBT.TAG_ANY_NUMERIC))
+                stackNbt.putFloat(TAG_RANGE, this.range);
         return CuriosIntegration.getCapability(stack);
     }
 
@@ -73,10 +79,15 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
         float duration = nbt.getFloat(TAG_DURATION) / 20f;
         float cooldown = nbt.getFloat(TAG_COOLDOWN) / 20f;
         info.add(new StringTextComponent(I18n.format(this.getTranslationKey() + ".description")));
-        if (duration > 0)
+
+        if (this.showDuration)
             info.add(new StringTextComponent(TextFormatting.GOLD + I18n.format(DungeonsLang.ARTIFACT_DESC_PREFIX + "duration") + ": " + TextFormatting.YELLOW + duration + I18n.format(DungeonsLang.ARTIFACT_DESC_SECOND)));
-        if (cooldown > 0)
+
+        if (this.showCooldown)
             info.add(new StringTextComponent(TextFormatting.GOLD + I18n.format(DungeonsLang.ARTIFACT_DESC_PREFIX + "cooldown") + ": " + TextFormatting.YELLOW + cooldown + I18n.format(DungeonsLang.ARTIFACT_DESC_SECOND)));
+
+        if (this.showRange && this.hasRange())
+            info.add(new StringTextComponent(TextFormatting.GOLD + I18n.format(DungeonsLang.ARTIFACT_DESC_PREFIX + "range") + ": " + TextFormatting.YELLOW + range + " " + I18n.format(DungeonsLang.ARTIFACT_DESC_BLOCKS)));
     }
 
     @Override
@@ -132,5 +143,18 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
 
     protected void showCooldown(boolean showCooldown) {
         this.showCooldown = showCooldown;
+    }
+
+    public boolean hasRange() {
+        return this.range != 0f;
+    }
+
+    protected void setRange(float range) {
+        this.setRange(range, range != 0f);
+    }
+
+    protected void setRange(float range, boolean showRange) {
+        this.range = range;
+        this.showRange = showRange;
     }
 }

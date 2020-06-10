@@ -24,15 +24,7 @@ public class WindHornArtifact extends ArtifactItem {
 
     public WindHornArtifact(Properties prop) {
         super(prop, 0f, 10f);
-    }
-
-    @Nullable
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
-        CompoundNBT stackNbt = stack.getOrCreateTag();
-        if (!stackNbt.contains(TAG_RANGE, Constants.NBT.TAG_ANY_NUMERIC))
-            stackNbt.putFloat(TAG_RANGE, 5f);
-        return super.initCapabilities(stack, nbt);
+        this.setRange(5f, false);
     }
 
     @Override
