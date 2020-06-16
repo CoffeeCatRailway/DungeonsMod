@@ -2,6 +2,7 @@ package io.github.tastac.dungeonsmod.common.item;
 
 import io.github.tastac.dungeonsmod.integration.CuriosIntegration;
 import io.github.tastac.dungeonsmod.integration.registrate.DungeonsLang;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,6 +41,8 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
     private float range = 0f;
 
     private boolean manualSideCheck = false;
+    private boolean manualShiftInfoPlacement = false;
+
     private boolean showDuration;
     private boolean showCooldown;
     private boolean showRange;
@@ -88,6 +91,16 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
 
         if (this.showRange && this.hasRange())
             info.add(new StringTextComponent(TextFormatting.GOLD + I18n.format(DungeonsLang.ARTIFACT_DESC_PREFIX + "range") + ": " + TextFormatting.YELLOW + range + " " + I18n.format(DungeonsLang.ARTIFACT_DESC_BLOCKS)));
+
+        if (!this.isManualShiftInfoPlacement())
+            this.addShiftInfo(info);
+    }
+
+    protected void addShiftInfo(List<ITextComponent> info) {
+        if (Screen.hasShiftDown())
+            info.add(new StringTextComponent(I18n.format(this.getTranslationKey() + ".flavourText")));
+        else
+            info.add(new StringTextComponent(I18n.format(DungeonsLang.ARTIFACT_DESC_HOLD_SHIFT, "more info.")));
     }
 
     @Override
@@ -127,6 +140,14 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
 
     protected void hasManualSideCheck(boolean manualSideCheck) {
         this.manualSideCheck = manualSideCheck;
+    }
+
+    public boolean isManualShiftInfoPlacement() {
+        return manualShiftInfoPlacement;
+    }
+
+    protected void hasManualShiftInfoPlacement(boolean manualShiftInfoPlacement) {
+        this.manualShiftInfoPlacement = manualShiftInfoPlacement;
     }
 
     public boolean isShowingDuration() {

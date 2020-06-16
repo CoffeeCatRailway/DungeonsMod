@@ -29,6 +29,7 @@ public class RegenerationTotem extends TotemArtifact {
 
     public RegenerationTotem(Properties prop) {
         super(prop, 7.5f, 25f, 5f, new Color(0xFF0000), RegenerationTotemEntity::new);
+        this.hasManualShiftInfoPlacement(true);
     }
 
     @Nullable
@@ -49,5 +50,7 @@ public class RegenerationTotem extends TotemArtifact {
         CompoundNBT nbt = stack.getOrCreateTag();
         info.add(new StringTextComponent(TextFormatting.GOLD + I18n.format(this.getTranslationKey() + ".heal_amount") + " " +
                 TextFormatting.YELLOW + nbt.getFloat(TAG_HEAL_AMOUNT) + "/" + (nbt.getInt(TAG_HEAL_SPEED) / 20f) + I18n.format(DungeonsLang.ARTIFACT_DESC_SECOND)));
+
+        this.addShiftInfo(info);
     }
 }
