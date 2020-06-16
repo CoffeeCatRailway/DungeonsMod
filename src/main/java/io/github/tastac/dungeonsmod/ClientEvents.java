@@ -1,6 +1,7 @@
 package io.github.tastac.dungeonsmod;
 
 import io.github.tastac.dungeonsmod.client.entity.RegenerationTotemRenderer;
+import io.github.tastac.dungeonsmod.client.entity.ShieldingTotemRenderer;
 import io.github.tastac.dungeonsmod.integration.CuriosIntegration;
 import io.github.tastac.dungeonsmod.network.ActivateArtifactMessage;
 import io.github.tastac.dungeonsmod.network.PacketHandler;
@@ -26,6 +27,7 @@ public class ClientEvents {
 
     public static void entityRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(DungeonsEntities.TOTEM_OF_REGENERATION.get(), RegenerationTotemRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(DungeonsEntities.TOTEM_OF_SHIELDING.get(), ShieldingTotemRenderer::new);
     }
 
     @OnlyIn(Dist.CLIENT)

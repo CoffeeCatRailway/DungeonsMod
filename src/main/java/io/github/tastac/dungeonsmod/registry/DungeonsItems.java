@@ -45,6 +45,9 @@ public class DungeonsItems {
                 return langs;
             }).model(NonNullBiConsumer.noop()).register();
 
+    public static final RegistryEntry<ShieldingTotem> TOTEM_OF_SHIELDING = registerArtifact("totem_of_shielding", "WIP",
+            ShieldingTotem::new).model(NonNullBiConsumer.noop()).register();
+
     private static <T extends ArtifactItem> ItemBuilder<T, Registrate> registerArtifact(String id, String description, NonNullFunction<Item.Properties, T> factory) {
         return registerArtifact(id, description, factory, HashMap::new);
     }

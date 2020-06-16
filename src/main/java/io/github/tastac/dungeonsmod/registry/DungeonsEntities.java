@@ -4,6 +4,7 @@ import com.tterrag.registrate.util.entry.RegistryEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import io.github.tastac.dungeonsmod.common.entity.RegenerationTotemEntity;
+import io.github.tastac.dungeonsmod.common.entity.ShieldingTotemEntity;
 import io.github.tastac.dungeonsmod.common.entity.TotemEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -17,6 +18,8 @@ import static io.github.tastac.dungeonsmod.DungeonsMod.REGISTRATE;
 public class DungeonsEntities {
 
     public static final RegistryEntry<EntityType<RegenerationTotemEntity>> TOTEM_OF_REGENERATION = registerTotem("totem_of_regeneration", RegenerationTotemEntity::new);
+
+    public static final RegistryEntry<EntityType<ShieldingTotemEntity>> TOTEM_OF_SHIELDING = registerTotem("totem_of_shielding", ShieldingTotemEntity::new);
 
     private static <T extends TotemEntity> RegistryEntry<EntityType<T>> registerTotem(String id, EntityType.IFactory<T> factory) {
         return REGISTRATE.<T>entity(id, factory, EntityClassification.MISC)

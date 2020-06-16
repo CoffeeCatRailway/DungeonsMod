@@ -1,5 +1,6 @@
 {
   "entity.dungeonsmod.totem_of_regeneration": "uo\u0131\u0287\u0250\u0279\u01DDu\u01DDb\u01DD\u1D1A \u025FO \u026F\u01DD\u0287o\u27D8",
+  "entity.dungeonsmod.totem_of_shielding": "bu\u0131p\u05DF\u01DD\u0131\u0265S \u025FO \u026F\u01DD\u0287o\u27D8",
   "item.dungeonsmod.artifact.blocks": "s\u029E\u0254o\u05DFq",
   "item.dungeonsmod.artifact.cooldown": "u\u028Dop\u05DFoo\u0186",
   "item.dungeonsmod.artifact.duration": "uo\u0131\u0287\u0250\u0279n\u15E1",
@@ -15,6 +16,7 @@
   "item.dungeonsmod.totem_of_regeneration": "uo\u0131\u0287\u0250\u0279\u01DDu\u01DDb\u01DD\u1D1A \u025FO \u026F\u01DD\u0287o\u27D8",
   "item.dungeonsmod.totem_of_regeneration.description": "s\u01DD\u0131\u05DF\u05DF\u0250 \u0279no\u028E pu\u0250 no\u028E bu\u0131\u05DF\u0250\u01DD\u0265 '\u0250\u0279n\u0250 \u0279\u0250\u05DFn\u0254\u0279\u0131\u0254 \u0250 s\u01DD\u0287\u0250\u01DD\u0279\u0254 \u0287\u0250\u0265\u0287 \u026F\u01DD\u0287o\u0287 \u2C6F",
   "item.dungeonsmod.totem_of_regeneration.heal_amount": "p\u01DD\u05DF\u0250\u01DDH s\u0287\u0279\u0250\u01DDH",
+  "item.dungeonsmod.totem_of_shielding": "bu\u0131p\u05DF\u01DD\u0131\u0265S \u025FO \u026F\u01DD\u0287o\u27D8",
   "item.dungeonsmod.wind_horn": "u\u0279oH pu\u0131M",
   "item.dungeonsmod.wind_horn.description": "\u028E\u05DF\u025F\u01DD\u0131\u0279q \u026F\u01DD\u0265\u0287 s\u028Do\u05DFs pu\u0250 no\u028E \u026Fo\u0279\u025F \u028E\u0250\u028D\u0250 s\u01DD\u0131\u026F\u01DDu\u01DD s\u01DD\u0265sn\u0500",
   "itemGroup.dungeonsmod": "poW suo\u01DDbun\u15E1\u3125\u00A7",
