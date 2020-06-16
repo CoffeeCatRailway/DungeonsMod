@@ -51,6 +51,7 @@ public class DungeonsMod {
     public static final KeyBinding USE_ARTIFACT_2 = registerKeyBinding("use_artifact_2", GLFW.GLFW_KEY_X);
     public static final KeyBinding USE_ARTIFACT_3 = registerKeyBinding("use_artifact_3", GLFW.GLFW_KEY_C);
 
+    public static DungeonsConfig.Client CLIENT_CONFIG;
     public static DungeonsConfig.Server SERVER_CONFIG;
 
     public static final ItemGroup GROUP = new ItemGroup(MOD_ID) {
@@ -80,6 +81,10 @@ public class DungeonsMod {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::setupClient);
         modEventBus.addListener(this::setupCommon);
+
+        final Pair<DungeonsConfig.Client, ForgeConfigSpec> clientConfig = new ForgeConfigSpec.Builder().configure(DungeonsConfig.Client::new);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, clientConfig.getRight());
+        CLIENT_CONFIG = clientConfig.getLeft();
 
         final Pair<DungeonsConfig.Server, ForgeConfigSpec> serverConfig = new ForgeConfigSpec.Builder().configure(DungeonsConfig.Server::new);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, serverConfig.getRight());

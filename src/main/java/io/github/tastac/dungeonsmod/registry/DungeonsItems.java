@@ -38,8 +38,8 @@ public class DungeonsItems {
     public static final RegistryEntry<BootsOfSwistnessArtifact> BOOTS_OF_SWISTNESS = registerArtifact("boots_of_swiftness", "Gives a short boost to movement speed",
             BootsOfSwistnessArtifact::new).model(NonNullBiConsumer.noop()).register();
 
-    public static final RegistryEntry<TotemOfRegenerationArtifact> TOTEM_OF_REGENERATION = registerArtifact("totem_of_regeneration", "A totem that creates a circular aura, healing you and your allies",
-            TotemOfRegenerationArtifact::new, () -> {
+    public static final RegistryEntry<RegenerationTotem> TOTEM_OF_REGENERATION = registerArtifact("totem_of_regeneration", "A totem that creates a circular aura, healing you and your allies",
+            RegenerationTotem::new, () -> {
                 Map<String, String> langs = new HashMap<>();
                 langs.put("heal_amount", "Hearts Healed");
                 return langs;

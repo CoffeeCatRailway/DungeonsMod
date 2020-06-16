@@ -2,8 +2,7 @@ package io.github.tastac.dungeonsmod.common.entity;
 
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import io.github.tastac.dungeonsmod.common.item.ArtifactItem;
-import io.github.tastac.dungeonsmod.common.item.TotemOfRegenerationArtifact;
-import io.github.tastac.dungeonsmod.registry.DungeonsEntities;
+import io.github.tastac.dungeonsmod.common.item.TotemArtifact;
 import io.github.tastac.dungeonsmod.registry.DungeonsItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -14,60 +13,57 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.play.server.SSpawnObjectPacket;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Supplier;
 
 /**
  * @author CoffeeCatRailway
- * Created: 4/06/2020
+ * Created: 11/06/2020
  */
-public class TotemOfRegenerationEntity extends Entity {
+public abstract class TotemEntity extends Entity {
 
     private static final String TAG_TOTEM = "Totem";
-    private static final DataParameter<ItemStack> TOTEM = EntityDataManager.createKey(TotemOfRegenerationEntity.class, DataSerializers.ITEMSTACK);
+    private static final DataParameter<ItemStack> TOTEM = EntityDataManager.createKey(RegenerationTotemEntity.class, DataSerializers.ITEMSTACK);
 
     @OnlyIn(Dist.CLIENT)
     public float deadAngle = 0f;
     @OnlyIn(Dist.CLIENT)
     public float yOffset = 0f;
 
-    public TotemOfRegenerationEntity(EntityType<? extends TotemOfRegenerationEntity> entityType, World world) {
+    private Supplier<? extends TotemArtifact> totemArtifactSupplier;
+
+    public TotemEntity(EntityType<? extends TotemEntity> entityType, World world) {
         super(entityType, world);
+        this.totemArtifactSupplier = this.getTotemArtifactSupplier();
     }
 
-    public TotemOfRegenerationEntity(World world, PlayerEntity player) {
-        super(DungeonsEntities.TOTEM_OF_REGENERATION.get(), world);
+    public TotemEntity(EntityType<? extends TotemEntity> entityType, World world, PlayerEntity player, ItemStack stack, float durationInTicks) {
+        super(entityType, world);
         this.setPositionAndRotation(player.getPositionVec().x, player.getPositionVec().y, player.getPositionVec().z, player.rotationYaw, 0f);
+        this.setTotem(stack.copy());
+        this.setDuration(durationInTicks);
+        this.totemArtifactSupplier = this.getTotemArtifactSupplier();
+    }
+
+    public abstract Supplier<? extends TotemArtifact> getTotemArtifactSupplier();
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.world.isRemote) {
+            if (this.ticksExisted >= this.getDuration())
+                this.remove();
+        }
     }
 
     @Override
     protected void registerData() {
         this.getDataManager().register(TOTEM, ItemStack.EMPTY);
-    }
-
-    public void tick() {
-        if (!this.world.isRemote) {
-            CompoundNBT nbt = this.getTotem().getOrCreateTag();
-            float range = nbt.getFloat(ArtifactItem.TAG_RANGE);
-            float healAmount = nbt.getFloat(TotemOfRegenerationArtifact.TAG_HEAL_AMOUNT);
-            List<PlayerEntity> players = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getBoundingBox().grow(range)).stream()
-                    .filter(entity -> entity instanceof PlayerEntity).map(entity -> (PlayerEntity) entity).collect(Collectors.toList());
-            players.forEach(player -> {
-                if (this.ticksExisted % 20 == 0)
-                    player.heal(healAmount);
-            });
-
-            if (this.ticksExisted >= this.getDuration())
-                this.remove();
-        }
     }
 
     @Override
@@ -94,10 +90,10 @@ public class TotemOfRegenerationEntity extends Entity {
 
     public ItemStack getTotem() {
         ItemStack totem = this.getDataManager().get(TOTEM);
-        if (totem.getItem() != DungeonsItems.TOTEM_OF_REGENERATION.get()) {
+        if (totem.getItem() != this.totemArtifactSupplier.get()) {
             if (this.world != null)
-                DungeonsMod.LOGGER.warn("TotemOfRegenerationEntity {} doesn't have a totem?!", this.getUniqueID());
-            return setTotem(new ItemStack(DungeonsItems.TOTEM_OF_REGENERATION.get()));
+                DungeonsMod.LOGGER.warn("TotemEntity {} doesn't have a totem?!", this.getUniqueID());
+            return setTotem(new ItemStack(this.totemArtifactSupplier.get()));
         } else {
             return totem;
         }
