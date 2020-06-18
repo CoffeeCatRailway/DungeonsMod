@@ -9,21 +9,18 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class DungeonsConfig {
 
     private static final String CONFIG_ARTIFACT = DungeonsMod.MOD_ID + ".artifact.";
-    private static final String CONFIG_ARTIFACT_PROPERTIES = DungeonsMod.MOD_ID + ".artifact.properties.";
-    private static final String CONFIG_ARTIFACT_SHIELD_TOTEM_COLOR = DungeonsMod.MOD_ID + ".artifact.shield_totem_color.";
+    private static final String CONFIG_ARTIFACT_PROPERTIES = CONFIG_ARTIFACT + "properties.";
 
     public static class Client {
 
-        public ForgeConfigSpec.IntValue shieldTotemRed;
-        public ForgeConfigSpec.IntValue shieldTotemGreen;
-        public ForgeConfigSpec.IntValue shieldTotemBlue;
-        public ForgeConfigSpec.IntValue shieldTotemAlpha;
+        public ForgeConfigSpec.IntValue regenerationTotemColor;
+        public ForgeConfigSpec.IntValue shieldTotemColor;
 
         public Client(ForgeConfigSpec.Builder builder) {
-            this.shieldTotemRed = builder.defineInRange(CONFIG_ARTIFACT_SHIELD_TOTEM_COLOR + "red", 204, 0, 255);
-            this.shieldTotemGreen = builder.defineInRange(CONFIG_ARTIFACT_SHIELD_TOTEM_COLOR + "green", 143, 0, 255);
-            this.shieldTotemBlue = builder.defineInRange(CONFIG_ARTIFACT_SHIELD_TOTEM_COLOR + "blue", 0, 0, 255);
-            this.shieldTotemAlpha = builder.defineInRange(CONFIG_ARTIFACT_SHIELD_TOTEM_COLOR + "alpha", 255, 0, 255);
+            int colorMin = Integer.MIN_VALUE;
+            int colorMax = Integer.MAX_VALUE;
+            this.regenerationTotemColor = builder.defineInRange(CONFIG_ARTIFACT_PROPERTIES + "regenerationTotemColor", 0xff1600, colorMin, colorMax);
+            this.shieldTotemColor = builder.defineInRange(CONFIG_ARTIFACT_PROPERTIES + "shieldTotemColor", 0xcc8f00, colorMin, colorMax);
         }
     }
 
