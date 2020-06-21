@@ -17,6 +17,7 @@ public class DungeonsConfig {
         public ForgeConfigSpec.DoubleValue totemEndDuration;
 
         public ForgeConfigSpec.IntValue regenerationTotemColor;
+        public ForgeConfigSpec.IntValue regenerationTotemFadedColor;
         public ForgeConfigSpec.IntValue shieldTotemColor;
 
         public Client(ForgeConfigSpec.Builder builder) {
@@ -26,6 +27,7 @@ public class DungeonsConfig {
             int colorMin = Integer.MIN_VALUE;
             int colorMax = Integer.MAX_VALUE;
             this.regenerationTotemColor = builder.defineInRange(CONFIG_ARTIFACT_PROPERTIES_TOTEM + "regenerationColor", 0xff1600, colorMin, colorMax);
+            this.regenerationTotemFadedColor = builder.defineInRange(CONFIG_ARTIFACT_PROPERTIES_TOTEM + "regenerationFadedColor", 0x330400, colorMin, colorMax);
             this.shieldTotemColor = builder.defineInRange(CONFIG_ARTIFACT_PROPERTIES_TOTEM + "shieldColor", 0xcc8f00, colorMin, colorMax);
         }
     }

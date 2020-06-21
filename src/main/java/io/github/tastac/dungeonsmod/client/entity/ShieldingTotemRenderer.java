@@ -76,7 +76,7 @@ public class ShieldingTotemRenderer extends TotemRenderer<ShieldingTotemEntity> 
     }
 
     @Override
-    public int getBaseColor() {
+    public int getBaseColor(ShieldingTotemEntity entity) {
         return DungeonsMod.CLIENT_CONFIG.shieldTotemColor.get();
     }
 

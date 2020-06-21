@@ -3,15 +3,19 @@ package io.github.tastac.dungeonsmod.client.entity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import io.github.tastac.dungeonsmod.DungeonsMod;
+import io.github.tastac.dungeonsmod.common.entity.RegenerationTotemEntity;
 import io.github.tastac.dungeonsmod.common.entity.TotemEntity;
 import io.github.tastac.dungeonsmod.common.item.ArtifactItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.culling.ClippingHelperImpl;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
@@ -40,14 +44,13 @@ public abstract class TotemRenderer<T extends TotemEntity> extends EntityRendere
 
     protected List<PosUv> posUvs = new ArrayList<>();
 
-    public TotemRenderer(EntityRendererManager renderManager) {
         super(renderManager);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     public abstract void addPosUvs(List<PosUv> posUvs, float range);
 
-    public abstract int getBaseColor();
+    public abstract int getBaseColor(T entity);
 
     public IVertexBuilder getVertexBuilder(T entity, IRenderTypeBuffer typeBuffer) {
         return typeBuffer.getBuffer(RenderType.getEntityTranslucent(this.getEntityTexture(entity)));
@@ -73,15 +76,17 @@ public abstract class TotemRenderer<T extends TotemEntity> extends EntityRendere
         if (world == null)
             return;
 
+        IVertexBuilder buffer = null;
         Vec3d view = Minecraft.getInstance().getRenderManager().info.getProjectedView();
 
         matrix.push();
         matrix.translate(-view.x, -view.y, -view.z);
-        this.toRender.forEach(entity -> {
+        for (T entity : this.toRender) {
             ItemStack stack = entity.getTotem();
             int packedLight = WorldRenderer.getCombinedLight(world, entity.getPosition());
             if (!stack.isEmpty()) {
-                IVertexBuilder buffer = this.getVertexBuilder(entity, typeBuffer);
+                if (buffer == null)
+                    buffer = this.getVertexBuilder(entity, typeBuffer);
 
                 matrix.push();
                 matrix.translate(entity.lastTickPosX + (entity.getPosX() - entity.lastTickPosX) * event.getPartialTicks(), entity.lastTickPosY + (entity.getPosY() - entity.lastTickPosY) * event.getPartialTicks(), entity.lastTickPosZ + (entity.getPosZ() - entity.lastTickPosZ) * event.getPartialTicks());
@@ -90,7 +95,7 @@ public abstract class TotemRenderer<T extends TotemEntity> extends EntityRendere
 
                 matrix.pop();
             }
-        });
+        }
         matrix.pop();
         RenderSystem.disableCull();
         typeBuffer.finish();
@@ -105,7 +110,7 @@ public abstract class TotemRenderer<T extends TotemEntity> extends EntityRendere
         List<PosUv> posUvs = this.getPosUvs(range);
         if (!posUvs.isEmpty()) {
             for (int i = 0; i < posUvs.size(); i += 4) {
-                Color color = new Color(this.getBaseColor());
+                Color color = new Color(this.getBaseColor(entity));
                 int r = color.getRed();
                 int g = color.getGreen();
                 int b = color.getBlue();
@@ -173,12 +178,31 @@ public abstract class TotemRenderer<T extends TotemEntity> extends EntityRendere
         float u;
         float v;
 
+        public PosUv(float x, float y, float z, Vec2f uv) {
+            this(x, y, z, uv.x, uv.y);
+        }
+
         public PosUv(float x, float y, float z, float u, float v) {
             this.x = x;
             this.y = y;
             this.z = z;
             this.u = u;
             this.v = v;
+        }
+    }
+
+    protected static class TextureUVs {
+
+        Vec2f topLeft;
+        Vec2f topRight;
+        Vec2f bottomRight;
+        Vec2f bottomLeft;
+
+        public TextureUVs(float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4) {
+            this.topLeft = new Vec2f(u1, v1);
+            this.topRight = new Vec2f(u2, v2);
+            this.bottomRight = new Vec2f(u3, v3);
+            this.bottomLeft = new Vec2f(u4, v4);
         }
     }
 }
