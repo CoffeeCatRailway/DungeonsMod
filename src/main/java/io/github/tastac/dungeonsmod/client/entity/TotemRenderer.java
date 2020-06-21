@@ -133,7 +133,7 @@ public abstract class TotemRenderer<T extends TotemEntity> extends EntityRendere
             matrix.scale(.75f, .75f, .75f);
             matrix.rotate(Vector3f.YP.rotationDegrees(180f - entity.rotationYaw));
 
-            boolean hasEnded = entity.ticksExisted >= entity.getDuration() - 40f;
+            boolean hasEnded = this.isEnding(entity);
             if (hasEnded)
                 entity.deadAngle = MathHelper.lerp(0.05f, entity.deadAngle, -90f);
             matrix.rotate(Vector3f.XP.rotationDegrees(entity.deadAngle));
@@ -149,6 +149,10 @@ public abstract class TotemRenderer<T extends TotemEntity> extends EntityRendere
             matrix.pop();
         }
         this.toRender.add(entity);
+    }
+
+    protected boolean isEnding(T entity) {
+        return entity.ticksExisted >= entity.getDuration() - DungeonsMod.CLIENT_CONFIG.totemEndDuration.get().floatValue();
     }
 
     protected Vec2f rotatePoint(Vec2f point, Vec2f origin, float angle) {
