@@ -25,7 +25,7 @@ public class RegenerationTotemRenderer extends TotemRenderer<RegenerationTotemEn
     private static final ResourceLocation RUNES_TEXTURE = DungeonsMod.getLocation("textures/misc/runes.png");
 
     public RegenerationTotemRenderer(EntityRendererManager renderManager) {
-        super(renderManager);
+        super(renderManager, false);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class ShieldingTotemRenderer extends TotemRenderer<ShieldingTotemEntity> 
     private static final ResourceLocation SHIELD_TEXTURE = DungeonsMod.getLocation("textures/misc/shield.png");
 
     public ShieldingTotemRenderer(EntityRendererManager renderManager) {
-        super(renderManager);
+        super(renderManager, true);
     }
 
     @Override

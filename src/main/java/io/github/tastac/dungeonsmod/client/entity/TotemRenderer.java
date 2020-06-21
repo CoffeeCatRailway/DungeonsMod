@@ -43,8 +43,11 @@ public abstract class TotemRenderer<T extends TotemEntity> extends EntityRendere
     private final Set<T> toRender = new HashSet<>();
 
     protected List<PosUv> posUvs = new ArrayList<>();
+    private boolean doesExpandUp;
 
+    public TotemRenderer(EntityRendererManager renderManager, boolean doesExpandUp) {
         super(renderManager);
+        this.doesExpandUp = doesExpandUp;
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -154,6 +157,15 @@ public abstract class TotemRenderer<T extends TotemEntity> extends EntityRendere
             matrix.pop();
         }
         this.toRender.add(entity);
+    }
+
+    @Override
+    public boolean shouldRender(T entity, ClippingHelperImpl camera, double camX, double camY, double camZ) {
+        if (super.shouldRender(entity, camera, camX, camY, camZ))
+            return true;
+        AxisAlignedBB box = entity.getRenderBoundingBox();
+        float range = entity.getTotem().getOrCreateTag().getFloat(ArtifactItem.TAG_RANGE);
+        return camera.isBoundingBoxInFrustum(box.grow(range, this.doesExpandUp ? range : 0f, range));
     }
 
     protected boolean isEnding(T entity) {
