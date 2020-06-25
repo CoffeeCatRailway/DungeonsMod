@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.Constants;
@@ -81,7 +82,7 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
         CompoundNBT nbt = stack.getOrCreateTag();
         float duration = nbt.getFloat(TAG_DURATION) / 20f;
         float cooldown = nbt.getFloat(TAG_COOLDOWN) / 20f;
-        info.add(new StringTextComponent(I18n.format(this.getTranslationKey() + ".description")));
+        info.add(new TranslationTextComponent(this.getTranslationKey() + ".description"));
 
         if (this.showDuration)
             info.add(new StringTextComponent(TextFormatting.GOLD + I18n.format(DungeonsLang.ARTIFACT_DESC_PREFIX + "duration") + ": " + TextFormatting.YELLOW + duration + I18n.format(DungeonsLang.ARTIFACT_DESC_SECOND)));

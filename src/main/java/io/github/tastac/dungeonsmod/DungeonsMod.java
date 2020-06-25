@@ -127,6 +127,7 @@ public class DungeonsMod {
     }
 
     public void setupClient(final FMLClientSetupEvent event) {
+        SoulsHUDOverlayHandler.init();
         DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientEvents::entityRenderers);
         DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientEvents::particleFactories);
 
@@ -174,6 +175,40 @@ public class DungeonsMod {
                     .send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), new SPacketSyncSoulsTotal(target.getEntityId(), handler.getSouls())));
         }
     }
+
+    @SubscribeEvent
+    public void onEntityDie(LivingDeathEvent event) { // TODO: Add entity/particle for souls
+        if (event.getSource().getTrueSource() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getSource().getTrueSource();
+            World world = player.world;
+
+            if (CuriosIntegration.hasSoulArtifact(player).isEmpty())
+                return;
+
+            player.getCapability(SoulsCapibility.SOULS_CAP).ifPresent(playerHandler -> {
+                LivingEntity entity = event.getEntityLiving();
+                AtomicInteger soulCount = new AtomicInteger(1);
+                if (entity instanceof PlayerEntity) {
+                    entity.getCapability(SoulsCapibility.SOULS_CAP).ifPresent(handler -> {
+                        int souls = player.world.rand.nextInt(handler.getSouls() / 2) + 1;
+                        soulCount.set(souls);
+                    });
+                }
+
+                for (int slot = 0; slot < CuriosAPI.getType("charm").get().getSize(); slot++) {
+                    ItemStack charm = CuriosIntegration.getArtifactStack(player, slot);
+                    if (charm.getItem() instanceof SoulArtifactItem) {
+                        soulCount.set(soulCount.get() * charm.getOrCreateTag().getInt(SoulArtifactItem.TAG_SOUL_GATHERING));
+                    }
+                }
+
+                playerHandler.addSouls(soulCount.get());
+                if (!world.isRemote) {
+                    float speed = SERVER_CONFIG.soulsParticleSpeed.get().floatValue();
+                    ((ServerWorld) world).spawnParticle(SoulParticleData.create(player), entity.getPosX(), entity.getPosY(), entity.getPosZ(), soulCount.get(), 0d, 0d, 0d, speed);
+                }
+            });
+        }
     }
 
     private static KeyBinding registerKeyBinding(String id, final int key) {

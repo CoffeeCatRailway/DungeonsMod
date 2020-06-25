@@ -3,6 +3,7 @@ package io.github.tastac.dungeonsmod.integration;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import io.github.tastac.dungeonsmod.common.item.IDungeonsCurio;
+import io.github.tastac.dungeonsmod.common.item.SoulArtifactItem;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -50,6 +51,17 @@ public class CuriosIntegration {
         }
 
         return artifact.get();
+    }
+
+    public static ItemStack hasSoulArtifact(PlayerEntity player) {
+        if (!CuriosAPI.getType("charm").isPresent())
+            return ItemStack.EMPTY;
+        for (int slot = 0; slot < CuriosAPI.getType("charm").get().getSize(); slot++) {
+            ItemStack charm = getArtifactStack(player, slot);
+            if (charm.getItem() instanceof SoulArtifactItem)
+                return charm;
+        }
+        return ItemStack.EMPTY;
     }
 
     public static ICapabilityProvider getCapability(ItemStack stack) {

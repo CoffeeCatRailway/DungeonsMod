@@ -12,6 +12,9 @@ public class DungeonsConfig {
     private static final String CONFIG_ARTIFACT_PROPERTIES = CONFIG_ARTIFACT + "properties.";
     private static final String CONFIG_ARTIFACT_PROPERTIES_TOTEM = CONFIG_ARTIFACT + "properties.totem.";
 
+    private static final String CONFIG_SOULS = DungeonsMod.MOD_ID + ".souls.";
+    private static final String CONFIG_SOULS_PARTICLE = CONFIG_SOULS + "particle.";
+
     public static class Client {
 
         public ForgeConfigSpec.DoubleValue totemEndDuration;
@@ -39,6 +42,10 @@ public class DungeonsConfig {
         public ForgeConfigSpec.DoubleValue totemOfRegenerationSpeed;
         public ForgeConfigSpec.DoubleValue shieldBounceOffset;
 
+        public ForgeConfigSpec.DoubleValue soulsParticleMotionSpeed;
+        public ForgeConfigSpec.DoubleValue soulsParticleSpeed;
+        public ForgeConfigSpec.DoubleValue soulsParticleExpireDist;
+
         public Server(ForgeConfigSpec.Builder builder) {
             this.canRightClickEquip = builder.comment("If true, you can press the right-mouse button to equip an artifact").define(CONFIG_ARTIFACT + "canRightClickEquip", true);
 
@@ -46,6 +53,13 @@ public class DungeonsConfig {
                     .defineInRange(CONFIG_ARTIFACT_PROPERTIES + "totemOfRegenerationSpeed", .75d, .5d, 60d);
             this.shieldBounceOffset = builder.comment("How close a projectile appears to bounce of the Totem Of Shielding")
                     .defineInRange(CONFIG_ARTIFACT_PROPERTIES + "shieldBounceOffset", .5d, 0d, 1d);
+
+            this.soulsParticleMotionSpeed = builder.comment("Soul particle speed towards the player")
+                    .defineInRange(CONFIG_SOULS_PARTICLE + "soulsParticleMotionSpeed", .5d, 0d, 10d);
+            this.soulsParticleSpeed = builder.comment("Soul particle speed")
+                    .defineInRange(CONFIG_SOULS_PARTICLE + "soulsParticleSpeed", .5d, 0d, 1d);
+            this.soulsParticleExpireDist = builder.comment("The distance to the player that it takes for the particle to expire")
+                    .defineInRange(CONFIG_SOULS_PARTICLE + "soulsParticleExpireDist", .25f, 0f, 1f);
         }
     }
 }

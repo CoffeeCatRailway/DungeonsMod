@@ -20,6 +20,8 @@ public class DungeonsLang implements NonNullConsumer<RegistrateLangProvider> {
     public static final String ARTIFACT_DESC_SECOND = ARTIFACT_DESC_PREFIX + "second";
     public static final String ARTIFACT_DESC_BLOCKS = ARTIFACT_DESC_PREFIX + "blocks";
     public static final String ARTIFACT_DESC_HOLD_SHIFT = ARTIFACT_DESC_PREFIX + "hold_shift";
+    public static final String ARTIFACT_DESC_REQUIRES_SOULS = ARTIFACT_DESC_PREFIX + "requires_souls";
+    public static final String ARTIFACT_DESC_SOULS_GATHERED = ARTIFACT_DESC_PREFIX + "souls_gathered";
 
     @Override
     public void accept(RegistrateLangProvider provider) {
@@ -35,6 +37,8 @@ public class DungeonsLang implements NonNullConsumer<RegistrateLangProvider> {
         provider.add(ARTIFACT_DESC_SECOND, "sec");
         provider.add(ARTIFACT_DESC_BLOCKS, "blocks");
         provider.add(ARTIFACT_DESC_HOLD_SHIFT, new StringTextComponent(TextFormatting.GRAY + "Hold [Shift] for %s").getText());
+        provider.add(ARTIFACT_DESC_REQUIRES_SOULS, "Requires Souls");
+        provider.add(ARTIFACT_DESC_SOULS_GATHERED, "Soul Gathering");
         ARTIFACT_LANGS.forEach(provider::add);
 
         DungeonsMod.LOGGER.info("DataGen: Lang");

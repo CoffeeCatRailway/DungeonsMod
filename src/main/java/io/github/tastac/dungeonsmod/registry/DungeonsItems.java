@@ -49,6 +49,9 @@ public class DungeonsItems {
     public static final RegistryEntry<ShieldingTotem> TOTEM_OF_SHIELDING = registerArtifact("totem_of_shielding", "This totem has mystical powers that shield those around it from projectiles",
             "This totem radiates powerful energy that bursts forth as a protective shield around those near it", ShieldingTotem::new).model(NonNullBiConsumer.noop()).register();
 
+    public static final RegistryEntry<SoulHealerArtifact> SOUL_HEALER = registerArtifact("soul_healer", "Heals the most injured ally nearby, including yourself",
+            "The Soul Healer amulet is cold to the touch and trembles with the power of souls. It is a common among the Illagers of the Woodland Mansions", SoulHealerArtifact::new).model(NonNullBiConsumer.noop()).register();
+
     private static <T extends ArtifactItem> ItemBuilder<T, Registrate> registerArtifact(String id, String description, String flavourText, NonNullFunction<Item.Properties, T> factory) {
         return registerArtifact(id, description, flavourText, factory, HashMap::new);
     }
