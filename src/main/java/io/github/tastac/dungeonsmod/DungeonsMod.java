@@ -14,6 +14,7 @@ import io.github.tastac.dungeonsmod.network.NetworkHandler;
 import io.github.tastac.dungeonsmod.network.server.SPacketSyncSoulsTotal;
 import io.github.tastac.dungeonsmod.registry.DungeonsEntities;
 import io.github.tastac.dungeonsmod.registry.DungeonsItems;
+import io.github.tastac.dungeonsmod.registry.DungeonsParticles;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -122,10 +123,12 @@ public class DungeonsMod {
 
         DungeonsItems.load();
         DungeonsEntities.load();
+        DungeonsParticles.PARTICLE_TYPES.register(modEventBus);
     }
 
     public void setupClient(final FMLClientSetupEvent event) {
         DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientEvents::entityRenderers);
+        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientEvents::particleFactories);
 
         KEY_REGISTRY.forEach(ClientRegistry::registerKeyBinding);
         DungeonsMod.LOGGER.info("Client Event: Register key binds");

@@ -2,10 +2,12 @@ package io.github.tastac.dungeonsmod;
 
 import io.github.tastac.dungeonsmod.client.entity.RegenerationTotemRenderer;
 import io.github.tastac.dungeonsmod.client.entity.ShieldingTotemRenderer;
+import io.github.tastac.dungeonsmod.client.particle.SoulParticle;
 import io.github.tastac.dungeonsmod.integration.CuriosIntegration;
-import io.github.tastac.dungeonsmod.network.ActivateArtifactMessage;
-import io.github.tastac.dungeonsmod.network.PacketHandler;
+import io.github.tastac.dungeonsmod.network.NetworkHandler;
+import io.github.tastac.dungeonsmod.network.client.CPacketActivateArtifact;
 import io.github.tastac.dungeonsmod.registry.DungeonsEntities;
+import io.github.tastac.dungeonsmod.registry.DungeonsParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -30,6 +32,10 @@ public class ClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(DungeonsEntities.TOTEM_OF_SHIELDING.get(), ShieldingTotemRenderer::new);
     }
 
+    public static void particleFactories() {
+        Minecraft.getInstance().particles.registerFactory(DungeonsParticles.SOUL.get(), SoulParticle.Factory::new);
+    }
+
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
     public static void keyPressed(InputEvent.KeyInputEvent event) {
@@ -39,7 +45,7 @@ public class ClientEvents {
             ClientPlayerEntity player = minecraft.player;
             ItemStack artifact = CuriosIntegration.getArtifactStack(player, slot);
             if (!artifact.isEmpty())
-                PacketHandler.INSTANCE.sendToServer(new ActivateArtifactMessage(slot));
+                NetworkHandler.INSTANCE.sendToServer(new CPacketActivateArtifact(slot));
         }
     }
 
