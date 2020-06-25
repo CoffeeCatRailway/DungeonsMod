@@ -9,11 +9,11 @@ import java.util.function.Supplier;
  * @author CoffeeCatRailway
  * Created: 28/05/2020
  */
-public interface IMessage<T> {
+public interface IPacket<T> {
 
-    void encode(T message, PacketBuffer buffer);
+    void encode(T packet, PacketBuffer buffer);
 
     T decode(PacketBuffer buffer);
 
-    void handle(T message, Supplier<NetworkEvent.Context> ctxSuppler);
+    void handle(T packet, Supplier<NetworkEvent.Context> ctxSuppler);
 }
