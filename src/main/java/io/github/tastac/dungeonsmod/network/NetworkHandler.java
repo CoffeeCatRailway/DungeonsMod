@@ -2,6 +2,8 @@ package io.github.tastac.dungeonsmod.network;
 
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import io.github.tastac.dungeonsmod.network.client.CPacketActivateArtifact;
+import io.github.tastac.dungeonsmod.network.server.SPacketSyncSouls;
+import io.github.tastac.dungeonsmod.network.server.SPacketSyncSoulsTotal;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
@@ -23,6 +25,8 @@ public class NetworkHandler {
                 .simpleChannel();
 
         register(CPacketActivateArtifact.class, new CPacketActivateArtifact(0));
+        register(SPacketSyncSouls.class, new SPacketSyncSouls(0, 0, false));
+        register(SPacketSyncSoulsTotal.class, new SPacketSyncSoulsTotal(0, 0));
 
         DungeonsMod.LOGGER.info("Common Event: Register packets");
     }
