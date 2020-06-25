@@ -4,7 +4,6 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import io.github.tastac.dungeonsmod.DungeonsMod;
-import io.github.tastac.dungeonsmod.common.entity.RegenerationTotemEntity;
 import io.github.tastac.dungeonsmod.common.entity.TotemEntity;
 import io.github.tastac.dungeonsmod.common.item.ArtifactItem;
 import net.minecraft.client.Minecraft;

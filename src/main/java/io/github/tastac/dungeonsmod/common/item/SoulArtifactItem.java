@@ -1,6 +1,5 @@
 package io.github.tastac.dungeonsmod.common.item;
 
-import io.github.tastac.dungeonsmod.common.capability.ISoulsHandler;
 import io.github.tastac.dungeonsmod.common.capability.SoulsCapibility;
 import io.github.tastac.dungeonsmod.integration.registrate.DungeonsLang;
 import net.minecraft.client.resources.I18n;

@@ -3,7 +3,6 @@ package io.github.tastac.dungeonsmod.common.entity;
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import io.github.tastac.dungeonsmod.common.item.ArtifactItem;
 import io.github.tastac.dungeonsmod.common.item.TotemArtifact;
-import io.github.tastac.dungeonsmod.registry.DungeonsItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
