@@ -74,6 +74,8 @@ minecraft {
 
 sourceSets.main.resources {
     srcDir 'src/generated/resources'
+
+//    exclude "**/*.ase"
 }
 
 configurations {
@@ -138,21 +140,6 @@ shadowJar {
     configurations = [project.configurations.shade]
     relocate 'com.tterrag.registrate', 'coffeecatrailway.repack.registrate'
     relocate 'io.github.ocelot', 'io.github.ocelot.lib'
-}
-
-processResources {
-    inputs.property("version", version)
-    inputs.property("modId", project.modId)
-    inputs.property("name", project.name)
-    inputs.property("author", project.author)
-    from(sourceSets.main.resources.srcDirs) {
-        include 'META-INF/mods.toml'
-        expand 'version': version, 'modId': project.modId, 'name': project.name, 'author': project.author
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'META-INF/mods.toml'
-    }
 }
 
 jar {
