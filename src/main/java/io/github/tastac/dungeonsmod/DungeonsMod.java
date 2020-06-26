@@ -177,7 +177,7 @@ public class DungeonsMod {
     }
 
     @SubscribeEvent
-    public void onEntityDie(LivingDeathEvent event) { // TODO: Add entity/particle for souls
+    public void onEntityDie(LivingDeathEvent event) {
         if (event.getSource().getTrueSource() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getSource().getTrueSource();
             World world = player.world;
@@ -205,7 +205,7 @@ public class DungeonsMod {
                 playerHandler.addSouls(soulCount.get());
                 if (!world.isRemote) {
                     float speed = SERVER_CONFIG.soulsParticleSpeed.get().floatValue();
-                    ((ServerWorld) world).spawnParticle(SoulParticleData.create(player), entity.getPosX(), entity.getPosY(), entity.getPosZ(), soulCount.get(), 0d, 0d, 0d, speed);
+                    ((ServerWorld) world).spawnParticle(SoulParticleData.create(player, false), entity.getPosX(), entity.getPosY(), entity.getPosZ(), soulCount.get(), 0d, 0d, 0d, speed);
                 }
             });
         }

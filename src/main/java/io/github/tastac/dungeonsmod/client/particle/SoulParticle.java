@@ -20,8 +20,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class SoulParticle extends SimpleAnimatedParticle {
 
     private PlayerEntity player;
+    private boolean goAway;
 
-    private SoulParticle(World world, double x, double y, double z, IAnimatedSprite sprite, PlayerEntity player) {
+    private SoulParticle(World world, double x, double y, double z, IAnimatedSprite sprite, PlayerEntity player, boolean goAway) {
         super(world, x + offset(world), y + offset(world), z + offset(world), sprite, -5.0E-4F);
         this.motionX = 0d;
         this.motionY = 0d;
@@ -31,6 +32,7 @@ public class SoulParticle extends SimpleAnimatedParticle {
         this.setColorFade(0xf2dec9);
         this.selectSpriteWithAge(sprite);
         this.player = player;
+        this.goAway = goAway;
     }
 
     @Override
@@ -40,6 +42,10 @@ public class SoulParticle extends SimpleAnimatedParticle {
         Vec3d pos = new Vec3d(this.posX, this.posY, this.posZ);
         Vec3d playerPos = this.player.getPositionVec().add(0f, 1f, 0f);
         Vec3d motion = pos.subtract(playerPos).normalize().mul(motionSpeed, motionSpeed, motionSpeed).inverse();
+
+        if (this.goAway)
+            motion = motion.inverse();
+
         this.motionX = motion.x;
         this.motionY = motion.y;
         this.motionZ = motion.z;
@@ -67,7 +73,7 @@ public class SoulParticle extends SimpleAnimatedParticle {
 
         @Override
         public Particle makeParticle(SoulParticleData type, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new SoulParticle(world, x, y, z, this.spriteSet, type.getPlayer());
+            return new SoulParticle(world, x, y, z, this.spriteSet, type.getPlayer(), type.isGoAway());
         }
     }
 }
