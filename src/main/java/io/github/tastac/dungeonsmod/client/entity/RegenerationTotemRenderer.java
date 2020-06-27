@@ -21,7 +21,6 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class RegenerationTotemRenderer extends TotemRenderer<RegenerationTotemEntity> {
 
-    private static final ResourceLocation TEXTURE = DungeonsMod.getLocation("textures/item/totem_of_regeneration.png");
     private static final ResourceLocation RUNES_TEXTURE = DungeonsMod.getLocation("textures/misc/runes.png");
 
     public RegenerationTotemRenderer(EntityRendererManager renderManager) {
@@ -30,8 +29,6 @@ public class RegenerationTotemRenderer extends TotemRenderer<RegenerationTotemEn
 
     @Override
     public void addPosUvs(List<PosUv> posUvs, float range) {
-        float y = 0.01f;
-
         TextureUVs rune1 = new TextureUVs(0f, 0f, .125f, 0f, .125f, .125f, 0f, .125f);
         TextureUVs rune2 = new TextureUVs(.875f, 0f, 1f, 0f, 1f, .125f, .875f, .125f);
         TextureUVs rune3 = new TextureUVs(0f, .125f, .125f, .125f, .125f, .25f, 0f, .25f);
@@ -45,6 +42,7 @@ public class RegenerationTotemRenderer extends TotemRenderer<RegenerationTotemEn
                 rune6, rune2, rune9, rune4, rune9, rune6, rune2, rune9, rune1, rune4, rune7, rune3, rune5, rune9, rune8
         };
 
+        float y = 0.01f;
         float length = runes.length;
         float angle = 360f / length;
         float offset = 8f / 16f;
