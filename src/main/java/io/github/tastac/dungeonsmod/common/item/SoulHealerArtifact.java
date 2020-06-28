@@ -21,7 +21,7 @@ public class SoulHealerArtifact extends SoulArtifactItem {
 
     @Override
     public void onSoulActivate(float durationInTicks, float cooldownInTicks, ItemStack stack, String identifier, int index, PlayerEntity player, int playerSouls, int usedSouls) {
-        if ((playerSouls > 0 && player.shouldHeal()) || player.isCreative()) {
+        if (player.shouldHeal() || player.isCreative()) {
             List<PlayerEntity> players = player.world.getEntitiesWithinAABB(PlayerEntity.class, player.getBoundingBox().grow(stack.getOrCreateTag().getFloat(TAG_RANGE)));
             PlayerEntity selectedPlayer = player;
 

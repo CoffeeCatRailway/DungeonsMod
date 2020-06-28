@@ -61,8 +61,15 @@ public abstract class SoulArtifactItem extends ArtifactItem {
     public void onArtifactActivate(float durationInTicks, float cooldownInTicks, ItemStack stack, String identifier, int index, PlayerEntity player) {
         player.getCapability(SoulsCapibility.SOULS_CAP).ifPresent(handler -> {
             int playerSouls = handler.getSouls();
-            int usedSouls = player.world.rand.nextInt(Math.max(1, playerSouls)) + 1;
-            this.onSoulActivate(durationInTicks, cooldownInTicks, stack, identifier, index, player, playerSouls, usedSouls);
+
+            if (playerSouls > 0 || player.isCreative()) {
+                if (player.isCreative())
+                    playerSouls = 20;
+                int minSouls = playerSouls / 4;
+                int usedSouls = Math.max(1, player.world.rand.nextInt(playerSouls - minSouls + 1) + minSouls);
+
+                this.onSoulActivate(durationInTicks, cooldownInTicks, stack, identifier, index, player, playerSouls, usedSouls);
+            }
         });
     }
 
