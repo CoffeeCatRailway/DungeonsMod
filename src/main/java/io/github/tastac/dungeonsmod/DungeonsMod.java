@@ -3,10 +3,10 @@ package io.github.tastac.dungeonsmod;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.providers.ProviderType;
 import io.github.tastac.dungeonsmod.client.SoulsHUDOverlayHandler;
+import io.github.tastac.dungeonsmod.client.particle.SoulParticle;
 import io.github.tastac.dungeonsmod.common.capability.SoulsCapibility;
 import io.github.tastac.dungeonsmod.common.command.SoulsCommand;
 import io.github.tastac.dungeonsmod.common.item.SoulArtifactItem;
-import io.github.tastac.dungeonsmod.common.particles.SoulParticleData;
 import io.github.tastac.dungeonsmod.integration.CuriosIntegration;
 import io.github.tastac.dungeonsmod.integration.registrate.DungeonsLang;
 import io.github.tastac.dungeonsmod.integration.registrate.DungeonsTags;
@@ -24,7 +24,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -203,10 +202,8 @@ public class DungeonsMod {
                 }
 
                 playerHandler.addSouls(soulCount.get());
-                if (!world.isRemote) {
-                    float speed = SERVER_CONFIG.soulsParticleSpeed.get().floatValue();
-                    ((ServerWorld) world).spawnParticle(SoulParticleData.create(player, false), entity.getPosX(), entity.getPosY(), entity.getPosZ(), soulCount.get(), 0d, 0d, 0d, speed);
-                }
+                if (!world.isRemote)
+                    SoulParticle.spawnParticles(world, player, entity.getPositionVec(), soulCount.get(), false);
             });
         }
     }

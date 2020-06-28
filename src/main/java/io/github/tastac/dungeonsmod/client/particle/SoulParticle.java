@@ -2,12 +2,18 @@ package io.github.tastac.dungeonsmod.client.particle;
 
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import io.github.tastac.dungeonsmod.common.particles.SoulParticleData;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.IAnimatedSprite;
+import net.minecraft.client.particle.IParticleFactory;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.SimpleAnimatedParticle;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author CoffeeCatRailway
@@ -15,6 +21,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  */
 @OnlyIn(Dist.CLIENT)
 public class SoulParticle extends SimpleAnimatedParticle {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private PlayerEntity player;
     private boolean goAway;
@@ -30,6 +38,14 @@ public class SoulParticle extends SimpleAnimatedParticle {
         this.selectSpriteWithAge(sprite);
         this.player = player;
         this.goAway = goAway;
+    }
+
+    public static void spawnParticles(World world, PlayerEntity player, Vec3d pos, int count, boolean goAway) {
+        if (world.isRemote) {
+            LOGGER.warn("World {} was not server side!", world);
+            return;
+        }
+        ((ServerWorld) world).spawnParticle(SoulParticleData.create(player, goAway), pos.x, pos.y, pos.z, count, 0d, 0d, 0d, 1f);
     }
 
     @Override

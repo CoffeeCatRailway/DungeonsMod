@@ -43,7 +43,6 @@ public class DungeonsConfig {
         public ForgeConfigSpec.DoubleValue shieldBounceOffset;
 
         public ForgeConfigSpec.DoubleValue soulsParticleMotionSpeed;
-        public ForgeConfigSpec.DoubleValue soulsParticleSpeed;
         public ForgeConfigSpec.DoubleValue soulsParticleExpireDist;
 
         public Server(ForgeConfigSpec.Builder builder) {
@@ -56,8 +55,6 @@ public class DungeonsConfig {
 
             this.soulsParticleMotionSpeed = builder.comment("Soul particle speed towards the player")
                     .defineInRange(CONFIG_SOULS_PARTICLE + "soulsParticleMotionSpeed", .5d, 0d, 10d);
-            this.soulsParticleSpeed = builder.comment("Soul particle speed")
-                    .defineInRange(CONFIG_SOULS_PARTICLE + "soulsParticleSpeed", .5d, 0d, 1d);
             this.soulsParticleExpireDist = builder.comment("The distance to the player that it takes for the particle to expire")
                     .defineInRange(CONFIG_SOULS_PARTICLE + "soulsParticleExpireDist", .25f, 0f, 1f);
         }
