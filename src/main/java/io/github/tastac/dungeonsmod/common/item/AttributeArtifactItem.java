@@ -32,7 +32,8 @@ public abstract class AttributeArtifactItem extends ArtifactItem {
     @Override
     public void onArtifactActivate(float durationInTicks, float cooldownInTicks, ItemStack stack, String identifier, int index, PlayerEntity player) {
         player.getAttributes().applyAttributeModifiers(this.getOrCreateAttributeModifiers(stack, identifier));
-        player.getCooldownTracker().setCooldown(this, (int) durationInTicks);
+        if (!player.isCreative())
+            player.getCooldownTracker().setCooldown(this, (int) durationInTicks);
     }
 
     public abstract Multimap<String, AttributeModifier> getAttributeModifiers(ItemStack stack, String identifier);

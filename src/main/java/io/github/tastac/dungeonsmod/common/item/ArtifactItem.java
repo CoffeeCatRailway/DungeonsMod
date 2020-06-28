@@ -112,7 +112,9 @@ public abstract class ArtifactItem extends Item implements IDungeonsCurio {
         if (this.isActive(stack) && !player.getCooldownTracker().hasCooldown(this)) {
             if (this.isRemote(player.world))
                 this.onArtifactActivate(durationInTicks, cooldownInTicks, stack, identifier, index, player);
-            player.getCooldownTracker().setCooldown(this, (int) (cooldownInTicks + durationInTicks));
+
+            if (!player.isCreative())
+                player.getCooldownTracker().setCooldown(this, (int) (cooldownInTicks + durationInTicks));
         }
         if (this.isActive(stack)) this.activate(stack, false);
     }
