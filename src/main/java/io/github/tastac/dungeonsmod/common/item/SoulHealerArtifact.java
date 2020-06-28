@@ -38,13 +38,4 @@ public class SoulHealerArtifact extends SoulArtifactItem {
             }
         }
     }
-
-    @Override
-    public boolean hasRender(ItemStack stack, String identifier, LivingEntity entity) {
-        return false;
-    }
-
-    @Override
-    public void render(ItemStack stack, String identifier, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageTicks, float headYaw, float headPitch) {
-    }
 }

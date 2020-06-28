@@ -1,9 +1,12 @@
 package io.github.tastac.dungeonsmod.common.item;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import io.github.tastac.dungeonsmod.common.capability.SoulsCapibility;
 import io.github.tastac.dungeonsmod.integration.registrate.DungeonsLang;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -80,4 +83,13 @@ public abstract class SoulArtifactItem extends ArtifactItem {
     }
 
     public abstract void onSoulActivate(float durationInTicks, float cooldownInTicks, ItemStack stack, String identifier, int index, PlayerEntity player, int playerSouls, int usedSouls);
+
+    @Override
+    public boolean hasRender(ItemStack stack, String identifier, LivingEntity entity) {
+        return false;
+    }
+
+    @Override
+    public void render(ItemStack stack, String identifier, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageTicks, float headYaw, float headPitch) {
+    }
 }
