@@ -52,6 +52,10 @@ public class DungeonsItems {
     public static final RegistryEntry<SoulHealerArtifact> SOUL_HEALER = registerArtifact("soul_healer", "Heals the most injured ally nearby, including yourself",
             "The Soul Healer amulet is cold to the touch and trembles with the power of souls. It is a common among the Illagers of the Woodland Mansions", SoulHealerArtifact::new).model(NonNullBiConsumer.noop()).register();
 
+    public static final RegistryEntry<WIPItem> LIGHTNING_ROD = REGISTRATE.item("lightning_rod", WIPItem::new).model((ctx, provider) -> provider.handheld(ctx::getEntry)).register();
+
+    public static final RegistryEntry<WIPItem> LIGHT_FEATHER = REGISTRATE.item("light_feather", WIPItem::new).model((ctx, provider) -> provider.handheld(ctx::getEntry)).register();
+
     private static <T extends ArtifactItem> ItemBuilder<T, Registrate> registerArtifact(String id, String description, String flavourText, NonNullFunction<Item.Properties, T> factory) {
         return registerArtifact(id, description, flavourText, factory, HashMap::new);
     }

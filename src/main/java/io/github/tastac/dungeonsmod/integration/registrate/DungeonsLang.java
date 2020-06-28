@@ -23,6 +23,8 @@ public class DungeonsLang implements NonNullConsumer<RegistrateLangProvider> {
     public static final String ARTIFACT_DESC_REQUIRES_SOULS = ARTIFACT_DESC_PREFIX + "requires_souls";
     public static final String ARTIFACT_DESC_SOULS_GATHERED = ARTIFACT_DESC_PREFIX + "souls_gathered";
 
+    public static final String WIP_ITEM = DungeonsMod.MOD_ID + ".wip_item";
+
     @Override
     public void accept(RegistrateLangProvider provider) {
         provider.add(DungeonsMod.GROUP, new StringTextComponent(TextFormatting.GRAY + "Dungeons Mod").getText());
@@ -40,6 +42,8 @@ public class DungeonsLang implements NonNullConsumer<RegistrateLangProvider> {
         provider.add(ARTIFACT_DESC_REQUIRES_SOULS, "Requires Souls");
         provider.add(ARTIFACT_DESC_SOULS_GATHERED, "Soul Gathering");
         ARTIFACT_LANGS.forEach(provider::add);
+
+        provider.add(WIP_ITEM, new StringTextComponent(TextFormatting.GRAY + "%s is a work in progress (WIP) item & has no functionality!").getText());
 
         DungeonsMod.LOGGER.info("DataGen: Lang");
     }
