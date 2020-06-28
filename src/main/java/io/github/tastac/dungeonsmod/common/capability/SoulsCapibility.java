@@ -3,6 +3,7 @@ package io.github.tastac.dungeonsmod.common.capability;
 import io.github.tastac.dungeonsmod.DungeonsMod;
 import io.github.tastac.dungeonsmod.network.NetworkHandler;
 import io.github.tastac.dungeonsmod.network.server.SPacketSyncSouls;
+import io.github.tastac.dungeonsmod.network.server.SPacketSyncSoulsTotal;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -70,6 +71,9 @@ public class SoulsCapibility {
         @Override
         public void setSouls(int souls) {
             this.souls = souls;
+            if (this.owner instanceof ServerPlayerEntity && ((ServerPlayerEntity) this.owner).connection != null)
+                NetworkHandler.INSTANCE.sendTo(new SPacketSyncSoulsTotal(this.owner.getEntityId(), souls),
+                        ((ServerPlayerEntity) this.owner).connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
         }
 
         @Override
