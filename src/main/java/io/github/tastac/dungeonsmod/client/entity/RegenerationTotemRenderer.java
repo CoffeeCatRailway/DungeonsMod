@@ -2,6 +2,8 @@ package io.github.tastac.dungeonsmod.client.entity;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import io.github.tastac.dungeonsmod.DungeonsMod;
+import io.github.tastac.dungeonsmod.client.utils.PosUv;
+import io.github.tastac.dungeonsmod.client.utils.TextureUVs;
 import io.github.tastac.dungeonsmod.common.entity.RegenerationTotemEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;

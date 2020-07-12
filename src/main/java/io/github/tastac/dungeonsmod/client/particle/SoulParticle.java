@@ -1,7 +1,6 @@
 package io.github.tastac.dungeonsmod.client.particle;
 
 import io.github.tastac.dungeonsmod.DungeonsMod;
-import io.github.tastac.dungeonsmod.common.particles.SoulParticleData;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;

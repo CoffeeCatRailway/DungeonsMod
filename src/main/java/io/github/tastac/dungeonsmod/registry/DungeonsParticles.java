@@ -1,7 +1,7 @@
 package io.github.tastac.dungeonsmod.registry;
 
 import io.github.tastac.dungeonsmod.DungeonsMod;
-import io.github.tastac.dungeonsmod.common.particles.SoulParticleData;
+import io.github.tastac.dungeonsmod.client.particle.SoulParticleData;
 import net.minecraft.particles.ParticleType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
