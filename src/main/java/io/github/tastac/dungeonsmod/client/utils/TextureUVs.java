@@ -1,9 +1,6 @@
 package io.github.tastac.dungeonsmod.client.utils;
 
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * @author CoffeeCatRailway
