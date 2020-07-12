@@ -51,16 +51,16 @@ public class RegenerationTotemRenderer extends TotemRenderer<RegenerationTotemEn
 
         for (int i = 0; i < length; i++) {
             float newAngle = angle * i + 180f;
-            Vec2f topRight = this.rotatePoint(new Vec2f(runePos.x + offset, runePos.y), runePos, newAngle);
-            Vec2f bottomRight = this.rotatePoint(new Vec2f(runePos.x + offset, runePos.y + offset), runePos, newAngle);
-            Vec2f bottomLeft = this.rotatePoint(new Vec2f(runePos.x, runePos.y + offset), runePos, newAngle);
+            Vec2f topRight = rotatePoint(new Vec2f(runePos.x + offset, runePos.y), runePos, newAngle);
+            Vec2f bottomRight = rotatePoint(new Vec2f(runePos.x + offset, runePos.y + offset), runePos, newAngle);
+            Vec2f bottomLeft = rotatePoint(new Vec2f(runePos.x, runePos.y + offset), runePos, newAngle);
 
             posUvs.add(new PosUv(runePos.x, y, runePos.y, runes[i].topLeft));
             posUvs.add(new PosUv(topRight.x, y, topRight.y, runes[i].topRight));
             posUvs.add(new PosUv(bottomRight.x, y, bottomRight.y, runes[i].bottomRight));
             posUvs.add(new PosUv(bottomLeft.x, y, bottomLeft.y, runes[i].bottomLeft));
 
-            runePos = this.rotatePoint(runePos, Vec2f.ZERO, angle);
+            runePos = rotatePoint(runePos, Vec2f.ZERO, angle);
         }
     }
 

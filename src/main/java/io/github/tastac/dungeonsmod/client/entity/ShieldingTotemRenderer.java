@@ -1,6 +1,7 @@
 package io.github.tastac.dungeonsmod.client.entity;
 
 import io.github.tastac.dungeonsmod.DungeonsMod;
+import io.github.tastac.dungeonsmod.client.utils.PosUv;
 import io.github.tastac.dungeonsmod.common.entity.ShieldingTotemEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
@@ -47,10 +48,10 @@ public class ShieldingTotemRenderer extends TotemRenderer<ShieldingTotemEntity> 
             Vec2f bottomPosNext = bottomPos;
 
             for (int j = 0; j < 6; j++) {
-                topPosNext = this.rotatePoint(topPosNext, Vec2f.ZERO, angle);
-                topMidPosNext = this.rotatePoint(topMidPosNext, Vec2f.ZERO, angle);
-                bottomMidPosNext = this.rotatePoint(bottomMidPosNext, Vec2f.ZERO, angle);
-                bottomPosNext = this.rotatePoint(bottomPosNext, Vec2f.ZERO, angle);
+                topPosNext = rotatePoint(topPosNext, Vec2f.ZERO, angle);
+                topMidPosNext = rotatePoint(topMidPosNext, Vec2f.ZERO, angle);
+                bottomMidPosNext = rotatePoint(bottomMidPosNext, Vec2f.ZERO, angle);
+                bottomPosNext = rotatePoint(bottomPosNext, Vec2f.ZERO, angle);
 
                 posUvs.add(new PosUv(topPosNext.x, range * halfMul + halfAdd, topPosNext.y, 0f, 0f));
                 posUvs.add(new PosUv(topPos.x, range * halfMul + halfAdd, topPos.y, oneDivThree, 0f));
@@ -67,10 +68,10 @@ public class ShieldingTotemRenderer extends TotemRenderer<ShieldingTotemEntity> 
                 posUvs.add(new PosUv(bottomPos.x, (range - 3.35f) * halfMul + halfAdd, bottomPos.y, oneDivThreeT3, oneDivThreeT3));
                 posUvs.add(new PosUv(bottomPosNext.x, (range - 3.35f) * halfMul + halfAdd, bottomPosNext.y, oneDivThreeT2, oneDivThreeT3));
 
-                topPos = this.rotatePoint(topPos, Vec2f.ZERO, angle);
-                topMidPos = this.rotatePoint(topMidPos, Vec2f.ZERO, angle);
-                bottomMidPos = this.rotatePoint(bottomMidPos, Vec2f.ZERO, angle);
-                bottomPos = this.rotatePoint(bottomPos, Vec2f.ZERO, angle);
+                topPos = rotatePoint(topPos, Vec2f.ZERO, angle);
+                topMidPos = rotatePoint(topMidPos, Vec2f.ZERO, angle);
+                bottomMidPos = rotatePoint(bottomMidPos, Vec2f.ZERO, angle);
+                bottomPos = rotatePoint(bottomPos, Vec2f.ZERO, angle);
             }
         }
     }

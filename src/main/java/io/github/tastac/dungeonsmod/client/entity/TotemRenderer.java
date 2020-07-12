@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import io.github.tastac.dungeonsmod.DungeonsMod;
+import io.github.tastac.dungeonsmod.client.utils.PosUv;
 import io.github.tastac.dungeonsmod.common.entity.TotemEntity;
 import io.github.tastac.dungeonsmod.common.item.ArtifactItem;
 import net.minecraft.client.Minecraft;
@@ -118,13 +119,13 @@ public abstract class TotemRenderer<T extends TotemEntity> extends EntityRendere
                 int b = color.getBlue();
                 int a = color.getAlpha();
 
-                buffer.pos(matrixLast, posUvs.get(i).x, posUvs.get(i).y, posUvs.get(i).z).color(r, g, b, a).tex(posUvs.get(i).u, posUvs.get(i).v)
+                buffer.pos(matrixLast, posUvs.get(i).pos.getX(), posUvs.get(i).pos.getY(), posUvs.get(i).pos.getZ()).color(r, g, b, a).tex(posUvs.get(i).u, posUvs.get(i).v)
                         .overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLight).normal(0f, 1f, 0f).endVertex();
-                buffer.pos(matrixLast, posUvs.get(i + 1).x, posUvs.get(i + 1).y, posUvs.get(i + 1).z).color(r, g, b, a).tex(posUvs.get(i + 1).u, posUvs.get(i + 1).v)
+                buffer.pos(matrixLast, posUvs.get(i + 1).pos.getX(), posUvs.get(i + 1).pos.getY(), posUvs.get(i + 1).pos.getZ()).color(r, g, b, a).tex(posUvs.get(i + 1).u, posUvs.get(i + 1).v)
                         .overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLight).normal(0f, 1f, 0f).endVertex();
-                buffer.pos(matrixLast, posUvs.get(i + 2).x, posUvs.get(i + 2).y, posUvs.get(i + 2).z).color(r, g, b, a).tex(posUvs.get(i + 2).u, posUvs.get(i + 2).v)
+                buffer.pos(matrixLast, posUvs.get(i + 2).pos.getX(), posUvs.get(i + 2).pos.getY(), posUvs.get(i + 2).pos.getZ()).color(r, g, b, a).tex(posUvs.get(i + 2).u, posUvs.get(i + 2).v)
                         .overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLight).normal(0f, 1f, 0f).endVertex();
-                buffer.pos(matrixLast, posUvs.get(i + 3).x, posUvs.get(i + 3).y, posUvs.get(i + 3).z).color(r, g, b, a).tex(posUvs.get(i + 3).u, posUvs.get(i + 3).v)
+                buffer.pos(matrixLast, posUvs.get(i + 3).pos.getX(), posUvs.get(i + 3).pos.getY(), posUvs.get(i + 3).pos.getZ()).color(r, g, b, a).tex(posUvs.get(i + 3).u, posUvs.get(i + 3).v)
                         .overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLight).normal(0f, 1f, 0f).endVertex();
             }
         }
@@ -171,49 +172,12 @@ public abstract class TotemRenderer<T extends TotemEntity> extends EntityRendere
         return entity.ticksExisted >= entity.getDuration() - DungeonsMod.CLIENT_CONFIG.totemEndDuration.get().floatValue();
     }
 
-    protected Vec2f rotatePoint(Vec2f point, Vec2f origin, float angle) {
+    public static Vec2f rotatePoint(Vec2f point, Vec2f origin, float angle) {
         double radians = Math.toRadians(angle);
         float sin = (float) Math.sin(radians);
         float cos = (float) Math.cos(radians);
 
         Vec2f newPoint = new Vec2f(point.x - origin.x, point.y - origin.y);
         return new Vec2f(newPoint.x * cos + newPoint.y * sin + origin.x, -newPoint.x * sin + newPoint.y * cos + origin.y);
-    }
-
-    protected static class PosUv {
-
-        float x;
-        float y;
-        float z;
-
-        float u;
-        float v;
-
-        public PosUv(float x, float y, float z, Vec2f uv) {
-            this(x, y, z, uv.x, uv.y);
-        }
-
-        public PosUv(float x, float y, float z, float u, float v) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            this.u = u;
-            this.v = v;
-        }
-    }
-
-    protected static class TextureUVs {
-
-        Vec2f topLeft;
-        Vec2f topRight;
-        Vec2f bottomRight;
-        Vec2f bottomLeft;
-
-        public TextureUVs(float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4) {
-            this.topLeft = new Vec2f(u1, v1);
-            this.topRight = new Vec2f(u2, v2);
-            this.bottomRight = new Vec2f(u3, v3);
-            this.bottomLeft = new Vec2f(u4, v4);
-        }
     }
 }
